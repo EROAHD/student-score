@@ -1,0 +1,9 @@
+server:
+  port: 80
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mariadb://192.168.254.129:3306/student_score
+    username: root
+    password: 10909090
