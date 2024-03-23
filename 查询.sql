@@ -13,3 +13,4 @@ WHERE sno = ?;
 # 查询学生的基本信息
 SELECT *
 FROM student;
+

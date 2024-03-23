@@ -7,3 +7,7 @@ spring:
     url: jdbc:mariadb://192.168.254.129:3306/student_score
     username: root
     password: 10909090
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,10 +1,16 @@
 package org.demo.studentscore.service;
 
-import org.demo.studentscore.pojo.Student;
+import org.demo.studentscore.model.entity.Student;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StudentService {
 
-    List<Student> getAll();
+    Student getById(Integer id);
+
+    List<Student> getPage(Integer pageSize, Integer pageNum);
+
+    List<Student> getWithProperty(Map<String,String> keywords);
+
 }
