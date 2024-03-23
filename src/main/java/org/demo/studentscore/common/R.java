@@ -14,9 +14,6 @@ public class R<T> {
     // 返回结果的类型
     private T data;
 
-    private R() {
-    }
-
     private R(Integer code, String msg, T data) {
         this.code = code;
         this.msg = msg;

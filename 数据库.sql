@@ -110,7 +110,7 @@ INSERT INTO s_class VALUE (120202, '国际贸易2班', 1202);
 # 学生表
 CREATE TABLE student
 (
-    sno      INT PRIMARY KEY COMMENT '学号',
+    sno      INT UNSIGNED PRIMARY KEY COMMENT '学号',
     password VARCHAR(20)  NOT NULL COMMENT '登录密码',
     name     VARCHAR(50)  NOT NULL COMMENT '学生姓名',
     email    VARCHAR(100) NOT NULL COMMENT '学生邮箱',
@@ -159,7 +159,7 @@ INSERT INTO student VALUE (1912020201, 'SrMvf06apV1WceskVqq9', '翟元云', '292
 
 CREATE TABLE s_score
 (
-    sno   INT COMMENT '学号',
+    sno   INT UNSIGNED COMMENT '学号',
     cid   INT NOT NULL COMMENT '课程编号',
     score DECIMAL(5, 2) UNSIGNED,
     FOREIGN KEY (sno) REFERENCES student (sno),

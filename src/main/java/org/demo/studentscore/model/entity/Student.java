@@ -9,7 +9,6 @@ import lombok.Data;
 public class Student {
     @TableId
     private Long sno;
-    @JsonIgnore
     @TableField("password")
     private String password;
     @TableField("name")

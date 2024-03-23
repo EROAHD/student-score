@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface StudentService {
+    
+    List<Student> getPageWithProperty(Integer pageSize, Integer pageNum, Map<String, String> keywords);
 
-    Student getById(Integer id);
+    Integer addStudent(Student student);
 
-    List<Student> getPage(Integer pageSize, Integer pageNum);
+    Integer modifyStudent(Student student);
 
-    List<Student> getWithProperty(Map<String,String> keywords);
-
+    Integer removeStudent(Map<String, String> keywords);
 }
