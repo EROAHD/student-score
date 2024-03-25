@@ -29,7 +29,7 @@ public class ScoreController {
     @GetMapping("/{sno}")
     public R<?> getAllById(@PathVariable("sno") Integer sno) {
         List<ScoreVO> allScores = scoreService.getAllById(sno);
-        if (allScores != null) {
+        if (!allScores.isEmpty()) {
             return R.success(allScores);
         } else {
             return R.fail(StatusEnum.RECORD_NOT_FOUND);
