@@ -1,6 +1,6 @@
 package org.demo.studentscore.model.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -8,8 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode
+@AllArgsConstructor
 public class StudentVO {
-    @TableId
     private Long sno;
     private String name;
     private String email;

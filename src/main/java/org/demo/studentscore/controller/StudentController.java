@@ -3,9 +3,11 @@ package org.demo.studentscore.controller;
 import org.demo.studentscore.common.R;
 import org.demo.studentscore.common.StatusEnum;
 import org.demo.studentscore.model.entity.Student;
+import org.demo.studentscore.model.vo.StudentVO;
 import org.demo.studentscore.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,9 +35,11 @@ public class StudentController {
     public R<?> getPageWithProperty(@PathVariable("pageSize") Integer pageSize, @PathVariable("pageNum") Integer pageNum, @RequestParam Map<String, String> keywords) {
         List<Student> students = studentService.getPageWithProperty(pageSize, pageNum, keywords);
         if (students != null) {
-            return R.success(students);
+            List<StudentVO> studentVOS = conventToVOList(students);
+            return R.success(studentVOS);
+        } else {
+            return R.fail(StatusEnum.RECORD_NOT_FOUND);
         }
-        return R.fail(StatusEnum.RECORD_NOT_FOUND);
     }
 
     /**
@@ -93,5 +97,34 @@ public class StudentController {
         } else {
             return R.fail(StatusEnum.FAIL);
         }
+    }
+
+    /**
+     * 将Student类转换为StudentVO对象 目的在于屏蔽Student类中的敏感字段
+     *
+     * @param student Student实体类
+     * @return 返回StudentVO类型对象 仅返回学生基本信息
+     */
+    private StudentVO conventToVO(Student student) {
+        StudentVO studentVO = new StudentVO(student.getSno(),
+                student.getName(),
+                student.getEmail(),
+                student.getMid(),
+                student.getCid());
+        return studentVO;
+    }
+
+    /**
+     * 功能同上，返回List
+     *
+     * @param students Student类组成的List集合
+     * @return 返回VO对象的List集合
+     */
+    private List<StudentVO> conventToVOList(List<Student> students) {
+        List<StudentVO> studentVOList = new ArrayList<>();
+        students.forEach(student -> {
+            studentVOList.add(conventToVO(student));
+        });
+        return studentVOList;
     }
 }
