@@ -9,6 +9,6 @@ import lombok.Data;
 public class Score {
     @TableId
     private Integer cid; // 课程号
-    private Long sno; // 学号
+    private Integer sno; // 学号
     private Double score;// 课程成绩
 }

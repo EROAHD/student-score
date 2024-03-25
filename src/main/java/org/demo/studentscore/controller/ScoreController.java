@@ -27,7 +27,7 @@ public class ScoreController {
      * @return
      */
     @GetMapping("/{sno}")
-    public R<?> getAllById(@PathVariable("sno") Long sno) {
+    public R<?> getAllById(@PathVariable("sno") Integer sno) {
         List<ScoreVO> allScores = scoreService.getAllById(sno);
         if (allScores != null) {
             return R.success(allScores);

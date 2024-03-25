@@ -14,3 +14,19 @@ WHERE sno = ?;
 SELECT *
 FROM student;
 
+INSERT INTO teacher(tno, name, phone) VALUE (1234123423, '张东升', 12342232231);
+
+SELECT *
+FROM teacher
+         LEFT JOIN student_score.course ON teacher.tno = course.tno
+WHERE teacher.tno = 1234123423;
+
+SELECT course.cid, course.name, s_score.score, teacher.name teacher
+FROM course
+         LEFT JOIN s_score on course.cid = s_score.cid
+         RIGHT JOIN teacher ON teacher.tno = course.tno
+WHERE course.mid =
+      (SELECT mid
+       FROM major
+       WHERE mid = (SELECT mid FROM student WHERE sno = 1910010101))
+  AND sno = 1910010101

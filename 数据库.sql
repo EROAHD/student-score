@@ -35,47 +35,84 @@ INSERT INTO major VALUE (1102, '数据科学', 11);
 INSERT INTO major VALUE (1201, '会计学', 12);
 INSERT INTO major VALUE (1202, '国际贸易', 12);
 
-# 课程表
+-- 创建教师表
+CREATE TABLE teacher
+(
+    tno   INT UNSIGNED PRIMARY KEY COMMENT '教师编号',
+    name  VARCHAR(50) NOT NULL COMMENT '教师名称',
+    phone VARCHAR(11) NOT NULL COMMENT '手机号'
+);
+
+-- 插入教师数据
+INSERT INTO teacher VALUES (1234567890, '李思源', 13812345678);
+INSERT INTO teacher VALUES (2345678901, '周芳华', 15923456789);
+INSERT INTO teacher VALUES (3456789012, '王美丽', 18734567890);
+INSERT INTO teacher VALUES (1567890123, '赵小康', 13845678901);
+INSERT INTO teacher VALUES (1678901234, '钱晓红', 15956789012);
+INSERT INTO teacher VALUES (1789012345, '孙志强', 18067890123);
+INSERT INTO teacher VALUES (1890123456, '吴艳芳', 13178901234);
+INSERT INTO teacher VALUES (1901234567, '郑秀英', 15289012345);
+INSERT INTO teacher VALUES (1012345678, '汪文杰', 18390123456);
+INSERT INTO teacher VALUES (1234567891, '陆鹏飞', 13501234567);
+INSERT INTO teacher VALUES (1345678902, '罗小龙', 15612345678);
+INSERT INTO teacher VALUES (1456789013, '谭晓明', 18723456789);
+INSERT INTO teacher VALUES (1567890124, '黄俊杰', 13834567890);
+INSERT INTO teacher VALUES (1678901235, '曹建国', 15945678901);
+INSERT INTO teacher VALUES (1789012346, '彭小芳', 18056789012);
+INSERT INTO teacher VALUES (1890123457, '萧明珠', 13167890123);
+INSERT INTO teacher VALUES (1901234568, '魏志强', 15278901234);
+INSERT INTO teacher VALUES (1012345679, '蒋丽丽', 18389012345);
+INSERT INTO teacher VALUES (1234567892, '沈红梅', 13490123456);
+INSERT INTO teacher VALUES (1345678903, '周小龙', 15601234567);
+
+-- 创建课程表
 CREATE TABLE course
 (
     cid  INT AUTO_INCREMENT PRIMARY KEY COMMENT '课程编号',
     name VARCHAR(50) NOT NULL UNIQUE COMMENT '课程名称',
     mid  INT         NOT NULL COMMENT '课程对应专业编号',
-    FOREIGN KEY (mid) REFERENCES major (mid) # 专业编号作为外键
+    tno  INT UNSIGNED NOT NULL COMMENT '教师编号',
+    FOREIGN KEY (mid) REFERENCES major (mid), -- 专业编号作为外键
+    FOREIGN KEY (tno) REFERENCES teacher(tno) -- 任课教师作为外键
 );
 ALTER TABLE course
     AUTO_INCREMENT = 1001;
 
-/* 插入机械工程课程 */
-INSERT INTO course(name, mid) VALUE ('机械设计', 1001);
-INSERT INTO course(name, mid) VALUE ('热力学', 1001);
-INSERT INTO course(name, mid) VALUE ('控制工程', 1001);
-INSERT INTO course(name, mid) VALUE ('材料力学', 1001);
-/* 插入电子工程课程 */
-INSERT INTO course(name, mid) VALUE ('电路分析', 1002);
-INSERT INTO course(name, mid) VALUE ('数字电子技术', 1002);
-INSERT INTO course(name, mid) VALUE ('通信原理', 1002);
-INSERT INTO course(name, mid) VALUE ('微处理器应用', 1002);
-/* 插入软件工程课程 */
-INSERT INTO course(name, mid) VALUE ('软件设计与构建', 1101);
-INSERT INTO course(name, mid) VALUE ('数据库管理', 1101);
-INSERT INTO course(name, mid) VALUE ('软件测试与质量保证', 1101);
-INSERT INTO course(name, mid) VALUE ('软件项目管理', 1101);
-/* 插入数据科学课程 */
-INSERT INTO course(name, mid) VALUE ('数据分析与可视化', 1102);
-INSERT INTO course(name, mid) VALUE ('机器学习', 1102);
-INSERT INTO course(name, mid) VALUE ('数据挖掘', 1102);
-INSERT INTO course(name, mid) VALUE ('大数据技术', 1102);
-/* 插入会计学课程 */
-INSERT INTO course(name, mid) VALUE ('财务会计', 1201);
-INSERT INTO course(name, mid) VALUE ('管理会计', 1201);
-INSERT INTO course(name, mid) VALUE ('税务会计', 1201);
-INSERT INTO course(name, mid) VALUE ('审计学', 1201);
-/* 插入国际贸易课程 */
-INSERT INTO course(name, mid) VALUE ('国际经济学', 1202);
-INSERT INTO course(name, mid) VALUE ('跨国公司管理', 1202);
-INSERT INTO course(name, mid) VALUE ('跨文化沟通', 1202);
-INSERT INTO course(name, mid) VALUE ('海关法与实务', 1202);
+-- 插入机械工程课程
+INSERT INTO course(name, mid, tno) VALUES ('机械设计', 1001, 1234567890);
+INSERT INTO course(name, mid, tno) VALUES ('热力学', 1001, 2345678901);
+INSERT INTO course(name, mid, tno) VALUES ('控制工程', 1001, 3456789012);
+INSERT INTO course(name, mid, tno) VALUES ('材料力学', 1001, 1567890123);
+
+-- 插入电子工程课程
+INSERT INTO course(name, mid, tno) VALUES ('电路分析', 1002, 1678901234);
+INSERT INTO course(name, mid, tno) VALUES ('数字电子技术', 1002, 1789012345);
+INSERT INTO course(name, mid, tno) VALUES ('通信原理', 1002, 1890123456);
+INSERT INTO course(name, mid, tno) VALUES ('微处理器应用', 1002, 1901234567);
+
+-- 插入软件工程课程
+INSERT INTO course(name, mid, tno) VALUES ('软件设计与构建', 1101, 1012345678);
+INSERT INTO course(name, mid, tno) VALUES ('数据库管理', 1101, 1234567891);
+INSERT INTO course(name, mid, tno) VALUES ('软件测试与质量保证', 1101, 1345678902);
+INSERT INTO course(name, mid, tno) VALUES ('软件项目管理', 1101, 1456789013);
+
+-- 插入数据科学课程
+INSERT INTO course(name, mid, tno) VALUES ('数据分析与可视化', 1102, 1567890124);
+INSERT INTO course(name, mid, tno) VALUES ('机器学习', 1102, 1678901235);
+INSERT INTO course(name, mid, tno) VALUES ('数据挖掘', 1102, 1789012346);
+INSERT INTO course(name, mid, tno) VALUES ('大数据技术', 1102, 1890123457);
+
+-- 插入会计学课程
+INSERT INTO course(name, mid, tno) VALUES ('财务会计', 1201, 1901234568);
+INSERT INTO course(name, mid, tno) VALUES ('管理会计', 1201, 1012345679);
+INSERT INTO course(name, mid, tno) VALUES ('税务会计', 1201, 1234567892);
+INSERT INTO course(name, mid, tno) VALUES ('审计学', 1201, 1345678903);
+
+-- 插入国际贸易课程
+INSERT INTO course(name, mid, tno) VALUES ('国际经济学', 1202, 3456789012);
+INSERT INTO course(name, mid, tno) VALUES ('跨国公司管理', 1202, 1567890124);
+INSERT INTO course(name, mid, tno) VALUES ('跨文化沟通', 1202, 1678901235);
+INSERT INTO course(name, mid, tno) VALUES ('海关法与实务', 1202, 1789012346);
 
 # 班级表
 CREATE TABLE s_class
@@ -161,7 +198,7 @@ CREATE TABLE s_score
 (
     sno   INT UNSIGNED COMMENT '学号',
     cid   INT NOT NULL COMMENT '课程编号',
-    score DECIMAL(5, 2) UNSIGNED,
+    score DECIMAL(5, 2) UNSIGNED COMMENT '成绩',
     FOREIGN KEY (sno) REFERENCES student (sno),
     FOREIGN KEY (cid) REFERENCES course (cid)
 );

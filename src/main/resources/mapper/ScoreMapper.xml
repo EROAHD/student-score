@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.demo.studentscore.mapper.ScoreMapper">
+    <select id="selectAllInfo" resultType="org.demo.studentscore.model.vo.ScoreVO">
+        SELECT course.cid, course.name, s_score.score, teacher.name teacher
+        FROM course
+                 LEFT JOIN s_score on course.cid = s_score.cid
+                 RIGHT JOIN teacher ON teacher.tno = course.tno
+        WHERE course.mid =
+              (SELECT mid
+               FROM major
+               WHERE mid = (SELECT mid FROM student WHERE sno = #{sno}))
+          AND sno = #{sno}
+    </select>
+</mapper>

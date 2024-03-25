@@ -18,4 +18,5 @@ public class ScoreVO {
     private Integer cid;
     private String name; // 添加名称字段将课程名称返回
     private Double score;
+    private String teacher;
 }

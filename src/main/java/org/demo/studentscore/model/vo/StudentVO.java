@@ -10,9 +10,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class StudentVO {
-    private Long sno;
+    private Integer sno;
     private String name;
     private String email;
-    private Long mid;
-    private Long cid;
+    private Integer mid;
+    private Integer cid;
 }

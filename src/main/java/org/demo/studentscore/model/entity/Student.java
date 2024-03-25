@@ -7,12 +7,12 @@ import lombok.Data;
 @Data
 public class Student {
     @TableId
-    private Long sno; // 学号
+    private Integer sno; // 学号
     @TableField("password")
     private String password; // 密码
     @TableField("name")
     private String name; // 姓名
     private String email; // 邮箱
-    private Long mid; // 专业编号
-    private Long cid; // 班级编号
+    private Integer mid; // 专业编号
+    private Integer cid; // 班级编号
 }
