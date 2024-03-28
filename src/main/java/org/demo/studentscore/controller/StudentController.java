@@ -34,7 +34,7 @@ public class StudentController {
     @GetMapping("/{pageSize}/{pageNum}")
     public R<?> getPageWithProperty(@PathVariable("pageSize") Integer pageSize, @PathVariable("pageNum") Integer pageNum, @RequestParam Map<String, String> keywords) {
         List<Student> students = studentService.getPageWithProperty(pageSize, pageNum, keywords);
-        if (!students.isEmpty()) {
+        if (students != null && !students.isEmpty()) {
             List<StudentVO> studentVOS = conventToVOList(students);
             return R.success(studentVOS);
         } else {

@@ -1,7 +1,10 @@
 package org.demo.studentscore;
 
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class StudentScoreApplication {
@@ -10,4 +13,11 @@ public class StudentScoreApplication {
         SpringApplication.run(StudentScoreApplication.class, args);
     }
 
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor plusInterceptor = new MybatisPlusInterceptor();
+        // 添加防止全表更新拦截器
+        plusInterceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
+        return plusInterceptor;
+    }
 }

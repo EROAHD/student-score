@@ -23,13 +23,13 @@ public class ScoreController {
     /**
      * 通过学号查询一个学生已经存在的成绩
      *
-     * @param sno
-     * @return
+     * @param sno 传入学号
+     * @return 返回ScoreVO对象 包含课程编号 名称 成绩 任课教师
      */
     @GetMapping("/{sno}")
     public R<?> getAllById(@PathVariable("sno") Integer sno) {
         List<ScoreVO> allScores = scoreService.getAllById(sno);
-        if (!allScores.isEmpty()) {
+        if (allScores != null && !allScores.isEmpty()) {
             return R.success(allScores);
         } else {
             return R.fail(StatusEnum.RECORD_NOT_FOUND);

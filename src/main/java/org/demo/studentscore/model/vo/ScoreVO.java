@@ -17,6 +17,6 @@ public class ScoreVO {
     @TableId
     private Integer cid;
     private String name; // 添加名称字段将课程名称返回
-    private Double score;
+    private Integer score;
     private String teacher;
 }

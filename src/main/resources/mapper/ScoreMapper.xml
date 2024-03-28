@@ -6,12 +6,12 @@
     <select id="selectAllInfo" resultType="org.demo.studentscore.model.vo.ScoreVO">
         SELECT course.cid, course.name, s_score.score, teacher.name teacher
         FROM course
-                 LEFT JOIN s_score on course.cid = s_score.cid
+                 LEFT JOIN s_score ON course.cid = s_score.cid
                  RIGHT JOIN teacher ON teacher.tno = course.tno
-        WHERE course.mid =
-              (SELECT mid
-               FROM major
-               WHERE mid = (SELECT mid FROM student WHERE sno = #{sno}))
+        WHERE course.deleted = 0
+          AND s_score.deleted = 0
+          AND teacher.deleted = 0
+          AND course.mid = (SELECT mid FROM student WHERE sno = #{sno})
           AND sno = #{sno}
     </select>
 </mapper>
