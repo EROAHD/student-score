@@ -29,11 +29,16 @@ public class R<T> {
         return new R<>(StatusEnum.SUCCESS.getCode(), StatusEnum.SUCCESS.getName(), data);
     }
 
+
     /**
      * @param statusEnum 状态码
      * @return 返回R类型的对象
      */
     public static R<?> fail(StatusEnum statusEnum) {
         return new R<>(statusEnum.getCode(), statusEnum.getName(), null);
+    }
+
+    public static R<?> fail(String msg) {
+        return new R<>(StatusEnum.FAIL.getCode(), msg, null);
     }
 }

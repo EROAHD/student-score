@@ -6,7 +6,8 @@ import lombok.Data;
 @Data
 public class Course {
     @TableId
-    private Integer cid;
+    private Long cid;
     private String name;
-    private Integer mid;
+    private Long mid;
+    private Long tno;
 }

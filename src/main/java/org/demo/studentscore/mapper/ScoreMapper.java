@@ -10,5 +10,4 @@ import java.util.List;
 
 @Mapper
 public interface ScoreMapper extends BaseMapper<Score> {
-    List<ScoreVO> selectAllInfo(@Param("sno") Integer sno);
 }

@@ -15,8 +15,9 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ScoreVO {
     @TableId
-    private Integer cid;
+    private Long cid; // 课程号
     private String name; // 添加名称字段将课程名称返回
-    private Integer score;
-    private String teacher;
+    private Integer score; // 学生成绩 使用Integer 数据库不存储小数点成绩 成绩按照0.5自动进1
+    private String teacher; // 老师名称
+    private Boolean isFailed; // 表示是否挂科
 }

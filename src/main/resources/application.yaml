@@ -11,4 +11,13 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  
+
+jwt:
+  # 设置jwt密钥
+  secretKey: "JAWOIDJSABNKXJCHNZHDHWAIUDHJIOXZUCWKQNDIAYIIOHJZXCIYIUYAHJIXUZH"
+  # 设置jwt过期时间 时间戳形式
+  expireTime: 604800000
+  #  设置jwt登录接口的uri
+  loginUri: "/login"
+  #  设置token请求头名称
+  tokenHeaderName: "token"

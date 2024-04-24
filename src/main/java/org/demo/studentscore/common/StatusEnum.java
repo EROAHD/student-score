@@ -14,6 +14,7 @@ public enum StatusEnum {
     DATABASE_ERROR(2001, "数据库错误"),
     NETWORK_ERROR(2002, "网络错误"),
     SERVER_ERROR(2003, "服务器错误"),
+    TOKEN_IS_NULL(2004, "token为空"),
     INVALID_CREDENTIALS(3001, "用户名或密码错误");
 
 

@@ -6,7 +6,7 @@ USE student_score;
 # 专业大类表
 CREATE TABLE majors
 (
-    majors_id   INT PRIMARY KEY COMMENT '专业大类编号',
+    majors_id   BIGINT PRIMARY KEY COMMENT '专业大类编号',
     name        VARCHAR(50)   NOT NULL UNIQUE COMMENT '专业大类名称',
     description VARCHAR(1000) NOT NULL COMMENT '专业大类描述',
     deleted     INT DEFAULT 0 COMMENT '逻辑删除'
@@ -21,9 +21,9 @@ INSERT INTO majors(majors_id, name, description) VALUE (12, '商科',
 # 专业表
 CREATE TABLE major
 (
-    mid       INT PRIMARY KEY COMMENT '专业编号',
+    mid       BIGINT PRIMARY KEY COMMENT '专业编号',
     name      VARCHAR(50) NOT NULL UNIQUE COMMENT '专业名称',
-    majors_id INT         NOT NULL COMMENT '专业大类编号',
+    majors_id BIGINT      NOT NULL COMMENT '专业大类编号',
     deleted   INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (majors_id) REFERENCES majors (majors_id)
 );
@@ -40,62 +40,63 @@ INSERT INTO major(mid, name, majors_id) VALUE (1202, '国际贸易', 12);
 -- 创建教师表
 CREATE TABLE teacher
 (
-    tno     INT UNSIGNED PRIMARY KEY COMMENT '教师编号',
-    name    VARCHAR(50) NOT NULL COMMENT '教师名称',
-    phone   VARCHAR(11) NOT NULL COMMENT '手机号',
-    deleted INT DEFAULT 0 COMMENT '逻辑删除'
+    tno      BIGINT UNSIGNED PRIMARY KEY COMMENT '教师编号',
+    password VARCHAR(500) NOT NULL COMMENT '教师密码',
+    name     VARCHAR(50)  NOT NULL COMMENT '教师名称',
+    phone    VARCHAR(11)  NOT NULL COMMENT '手机号',
+    deleted  INT DEFAULT 0 COMMENT '逻辑删除'
 );
 
 -- 插入教师数据
-INSERT INTO teacher(tno, name, phone)
-VALUES (1234567890, '李思源', 13812345678);
-INSERT INTO teacher(tno, name, phone)
-VALUES (2345678901, '周芳华', 15923456789);
-INSERT INTO teacher(tno, name, phone)
-VALUES (3456789012, '王美丽', 18734567890);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1567890123, '赵小康', 13845678901);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1678901234, '钱晓红', 15956789012);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1789012345, '孙志强', 18067890123);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1890123456, '吴艳芳', 13178901234);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1901234567, '郑秀英', 15289012345);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1012345678, '汪文杰', 18390123456);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1234567891, '陆鹏飞', 13501234567);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1345678902, '罗小龙', 15612345678);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1456789013, '谭晓明', 18723456789);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1567890124, '黄俊杰', 13834567890);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1678901235, '曹建国', 15945678901);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1789012346, '彭小芳', 18056789012);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1890123457, '萧明珠', 13167890123);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1901234568, '魏志强', 15278901234);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1012345679, '蒋丽丽', 18389012345);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1234567892, '沈红梅', 13490123456);
-INSERT INTO teacher(tno, name, phone)
-VALUES (1345678903, '周小龙', 15601234567);
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1234567890, '李思源', 13812345678, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (2345678901, '周芳华', 15923456789, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (3456789012, '王美丽', 18734567890, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1567890123, '赵小康', 13845678901, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1678901234, '钱晓红', 15956789012, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1789012345, '孙志强', 18067890123, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1890123456, '吴艳芳', 13178901234, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1901234567, '郑秀英', 15289012345, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1012345678, '汪文杰', 18390123456, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1234567891, '陆鹏飞', 13501234567, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1345678902, '罗小龙', 15612345678, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1456789013, '谭晓明', 18723456789, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1567890124, '黄俊杰', 13834567890, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1678901235, '曹建国', 15945678901, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1789012346, '彭小芳', 18056789012, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1890123457, '萧明珠', 13167890123, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1901234568, '魏志强', 15278901234, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1012345679, '蒋丽丽', 18389012345, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1234567892, '沈红梅', 13490123456, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+INSERT INTO teacher(tno, name, phone, password)
+VALUES (1345678903, '周小龙', 15601234567, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
 
 -- 创建课程表
 CREATE TABLE course
 (
-    cid  INT AUTO_INCREMENT PRIMARY KEY COMMENT '课程编号',
-    name VARCHAR(50)  NOT NULL UNIQUE COMMENT '课程名称',
-    mid  INT          NOT NULL COMMENT '课程对应专业编号',
-    tno  INT UNSIGNED NOT NULL COMMENT '教师编号',
-    deleted     INT DEFAULT 0 COMMENT '逻辑删除',
+    cid     BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '课程编号',
+    name    VARCHAR(50)     NOT NULL UNIQUE COMMENT '课程名称',
+    mid     BIGINT          NOT NULL COMMENT '课程对应专业编号',
+    tno     BIGINT UNSIGNED NOT NULL COMMENT '教师编号',
+    deleted INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (mid) REFERENCES major (mid),  -- 专业编号作为外键
     FOREIGN KEY (tno) REFERENCES teacher (tno) -- 任课教师作为外键
 );
@@ -165,10 +166,10 @@ VALUES ('海关法与实务', 1202, 1789012346);
 # 班级表
 CREATE TABLE s_class
 (
-    cid  INT PRIMARY KEY COMMENT '班级编号',
-    name VARCHAR(20) NOT NULL COMMENT '班级名称',
-    mid  INT         NOT NULL COMMENT '专业编号',
-    deleted     INT DEFAULT 0 COMMENT '逻辑删除',
+    cid     BIGINT PRIMARY KEY COMMENT '班级编号',
+    name    VARCHAR(20) NOT NULL COMMENT '班级名称',
+    mid     BIGINT      NOT NULL COMMENT '专业编号',
+    deleted INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (mid) REFERENCES major (mid) # 专业编号作为外键
 );
 /* 插入机械工程班级 */
@@ -196,12 +197,12 @@ INSERT INTO s_class(cid, name, mid) VALUE (120202, '国际贸易2班', 1202);
 # 学生表
 CREATE TABLE student
 (
-    sno      INT UNSIGNED PRIMARY KEY COMMENT '学号',
-    password VARCHAR(20)  NOT NULL COMMENT '登录密码',
+    sno      BIGINT UNSIGNED PRIMARY KEY COMMENT '学号',
+    password VARCHAR(500) NOT NULL COMMENT '登录密码',
     name     VARCHAR(50)  NOT NULL COMMENT '学生姓名',
     email    VARCHAR(100) NOT NULL COMMENT '学生邮箱',
-    mid      INT          NOT NULL COMMENT '专业编号',
-    cid      INT          NOT NULL COMMENT '班级编号',
+    mid      BIGINT       NOT NULL COMMENT '专业编号',
+    cid      BIGINT       NOT NULL COMMENT '班级编号',
     deleted  INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (cid) REFERENCES s_class (cid), # 班级编号作为外键
     FOREIGN KEY (mid) REFERENCES major (mid)    # 专业编号作为外键
@@ -211,179 +212,273 @@ CREATE TABLE student
 */
 
 /* 机械工程1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010101, 'Xk6eEMLGKjtmDS0Z0ieM', '龙衡冲',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010101, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e', '龙衡冲',
                                                                  '11627451824@outlook.com', 1001, 100101);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010102, 'rXiujR5LDroZa8ruQJWB', '宣屹昶',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010102, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '宣屹昶',
                                                                  '51811826388@163.com', 1001, 100101);
 /* 机械工程2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010201, '2Dh8Rdh5hcwLebGWPpPH', '瞿铮丛',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010201, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '瞿铮丛',
                                                                  '71771258427@gmail.com', 1001, 100102);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010202, '6vaNqAhP6o40IZImaxgb', '唐冲军',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010202, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '唐冲军',
                                                                  '19936491337@yahoo.com', 1001, 100102);
 /* 机械工程3班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010301, 'Rz6gR7EQjQCNlakp6PHQ', '陈祺岚',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010301, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '陈祺岚',
                                                                  '70253453356@126.com', 1001, 100103);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010302, 'L93aESDFosp2h6ji8ENq', '郜冕元',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010302, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '郜冕元',
                                                                  '68391606781@outlook.com', 1001, 100103);
 /* 电子工程1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020101, '0wpcUme6YIszhREGfMqS', '丁昂歌',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020101, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '丁昂歌',
                                                                  '18201093658@126.com', 1002, 100201);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020102, 'tS7fJztWaS4vpp3y2WTj', '梅卉维',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020102, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '梅卉维',
                                                                  '51537485583@yahoo.com', 1002, 100201);
 /* 电子工程2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020201, 'gdvEeJqNPbnwjgOrftBc', '苗颖义',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020201, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '苗颖义',
                                                                  '91884912580@163.com', 1002, 100202);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020202, 'u5503Efy642hBQ6f58eC', '龙剑丞',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020202, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '龙剑丞',
                                                                  '90446517973@163.com', 1002, 100202);
 /* 软件工程1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010101, '7e87zyMacMRhJefsGmTT', '谭晓香',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010101, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '谭晓香',
                                                                  '74306478223@outlook.com', 1101, 110101);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010102, '8Ibjt9vXLuJ6W90cvOpH', '石韦涌',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010102, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '石韦涌',
                                                                  '73990427998@163.com', 1101, 110101);
 /* 软件工程2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010201, 'md4rg7rRENRRySKCpBkY', '仲荷莲',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010201, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '仲荷莲',
                                                                  '36702485386@126.com', 1101, 110102);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010202, 'iTPUEC9U8HgRr9wo0vSh', '袁益煜',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010202, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '袁益煜',
                                                                  '99602985054@yahoo.com', 1101, 110102);
 /* 数据科学1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911020101, 'oyuWYt2wt3neRU1mrBBJ', '祝印珑',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911020101, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '祝印珑',
                                                                  '16354350177@outlook.com', 1102, 110201);
 /* 会计学1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010101, 'tbAyE2z8LGZMZxHHfKZR', '叶澜秦',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010101, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '叶澜秦',
                                                                  '13729116400@163.com', 1102, 120101);
 /* 会计学2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010201, 'LOyOwKb9UrQlgUa78p2I', '祖漪椒',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010201, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '祖漪椒',
                                                                  '58312596850@yahoo.com', 1102, 120102);
 /* 会计学3班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010301, 'TDzJYo8VhWexhO8nuUoC', '芮垚刚',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010301, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '芮垚刚',
                                                                  '14222740660@gmail.com', 1102, 120103);
 /* 国际贸易1班 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020101, 'zePQAwM1nXnzYPcmBglW', '冯博靖',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020101, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '冯博靖',
                                                                  '42088064830@126.com', 1102, 120201);
 /* 国际贸易2班 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020201, 'SrMvf06apV1WceskVqq9', '翟元云',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020201, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '翟元云',
                                                                  '29291703269@yahoo.com', 1102, 120202);
 
 CREATE TABLE s_score
 (
-    sno     INT UNSIGNED COMMENT '学号',
-    cid     INT NOT NULL COMMENT '课程编号',
-    score   INT UNSIGNED COMMENT '成绩',
-    deleted INT DEFAULT 0 COMMENT '逻辑删除',
+    sno       BIGINT UNSIGNED COMMENT '学号',
+    cid       BIGINT NOT NULL COMMENT '课程编号',
+    score     INT UNSIGNED COMMENT '成绩',
+    is_failed BIT DEFAULT 0 COMMENT '是否挂科 0表示没有 1表示挂科',
+    deleted   INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (sno) REFERENCES student (sno),
     FOREIGN KEY (cid) REFERENCES course (cid)
 );
 
 -- 机械工程1班学生
-INSERT INTO s_score (sno, cid, score) VALUE (1910010101, 1001, 88);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010101, 1002, 75);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010101, 1003, 92);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010101, 1004, 81);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010101, 1001, 88, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010101, 1002, 75, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010101, 1003, 92, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010101, 1004, 81, 0);
 
-INSERT INTO s_score (sno, cid, score) VALUE (1910010102, 1001, 79);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010102, 1002, 87);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010102, 1003, 70);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010102, 1004, 93);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010102, 1001, 79, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010102, 1002, 87, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010102, 1003, 70, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010102, 1004, 93, 0);
 
 -- 机械工程2班学生
-INSERT INTO s_score (sno, cid, score) VALUE (1910010201, 1001, 84);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010201, 1002, 78);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010201, 1003, 89);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010201, 1004, 76);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010201, 1001, 84, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010201, 1002, 78, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010201, 1003, 89, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010201, 1004, 76, 0);
 
-INSERT INTO s_score (sno, cid, score) VALUE (1910010202, 1001, 91);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010202, 1002, 82);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010202, 1003, 85);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010202, 1004, 88);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010202, 1001, 91, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010202, 1002, 82, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010202, 1003, 85, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010202, 1004, 88, 0);
 
 -- 机械工程3班学生
-INSERT INTO s_score (sno, cid, score) VALUE (1910010301, 1001, 77);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010301, 1002, 90);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010301, 1003, 83);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010301, 1004, 79);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010301, 1001, 77, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010301, 1002, 90, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010301, 1003, 83, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010301, 1004, 79, 0);
 
-INSERT INTO s_score (sno, cid, score) VALUE (1910010302, 1001, 85);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010302, 1002, 73);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010302, 1003, 88);
-INSERT INTO s_score (sno, cid, score) VALUE (1910010302, 1004, 82);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010302, 1001, 85, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010302, 1002, 73, 1);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010302, 1003, 88, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910010302, 1004, 82, 0);
 
 -- 电子工程1班学生
-INSERT INTO s_score (sno, cid, score) VALUE (1910020101, 1005, 92);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020101, 1006, 86);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020101, 1007, 78);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020101, 1008, 90);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020101, 1005, 92, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020101, 1006, 86, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020101, 1007, 78, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020101, 1008, 90, 0);
 
-INSERT INTO s_score (sno, cid, score) VALUE (1910020102, 1005, 80);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020102, 1006, 89);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020102, 1007, 84);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020102, 1008, 87);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020102, 1005, 80, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020102, 1006, 89, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020102, 1007, 84, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020102, 1008, 87, 0);
 
 -- 电子工程2班学生
-INSERT INTO s_score (sno, cid, score) VALUE (1910020201, 1005, 92);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020201, 1006, 86);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020201, 1007, 78);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020201, 1008, 90);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020201, 1005, 92, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020201, 1006, 86, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020201, 1007, 78, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020201, 1008, 90, 0);
 
-INSERT INTO s_score (sno, cid, score) VALUE (1910020202, 1005, 80);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020202, 1006, 89);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020202, 1007, 84);
-INSERT INTO s_score (sno, cid, score) VALUE (1910020202, 1008, 87);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020202, 1005, 80, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020202, 1006, 89, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020202, 1007, 84, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1910020202, 1008, 87, 0);
 
 -- 软件工程1班学生
-INSERT INTO s_score(sno, cid, score) VALUE (1911010101, 1009, 80);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010101, 1010, 82);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010101, 1011, 83);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010101, 1012, 90);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010101, 1009, 80, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010101, 1010, 82, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010101, 1011, 83, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010101, 1012, 90, 0);
 
-INSERT INTO s_score(sno, cid, score) VALUE (1911010102, 1009, 81);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010102, 1010, 60);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010102, 1011, 50);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010102, 1012, 62);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010102, 1009, 81, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010102, 1010, 60, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010102, 1011, 50, 1);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010102, 1012, 62, 0);
 
 -- 软件工程2班学生
-INSERT INTO s_score(sno, cid, score) VALUE (1911010201, 1009, 81);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010201, 1010, 87);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010201, 1011, 70);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010201, 1012, 64);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010201, 1009, 81, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010201, 1010, 87, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010201, 1011, 70, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010201, 1012, 64, 0);
 
-INSERT INTO s_score(sno, cid, score) VALUE (1911010102, 1009, 81);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010102, 1010, 83);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010102, 1011, 90);
-INSERT INTO s_score(sno, cid, score) VALUE (1911010102, 1012, 96);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010102, 1009, 81, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010102, 1010, 83, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010102, 1011, 90, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911010102, 1012, 96, 0);
 
 -- 数据科学1班学生
-INSERT INTO s_score(sno, cid, score) VALUE (1911020101, 1013, 81);
-INSERT INTO s_score(sno, cid, score) VALUE (1911020101, 1014, 64);
-INSERT INTO s_score(sno, cid, score) VALUE (1911020101, 1015, 67);
-INSERT INTO s_score(sno, cid, score) VALUE (1911020101, 1016, 89);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911020101, 1013, 81, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911020101, 1014, 64, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911020101, 1015, 67, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1911020101, 1016, 89, 0);
 
 -- 会计学1班学生
-INSERT INTO s_score(sno, cid, score) VALUE (1912010101, 1017, 89);
-INSERT INTO s_score(sno, cid, score) VALUE (1912010101, 1018, 94);
-INSERT INTO s_score(sno, cid, score) VALUE (1912010101, 1019, 98);
-INSERT INTO s_score(sno, cid, score) VALUE (1912010101, 1020, 65);
-
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010101, 1017, 89, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010101, 1018, 94, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010101, 1019, 98, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010101, 1020, 65, 0);
 
 -- 会计学2班学生
-INSERT INTO s_score(sno, cid, score) VALUE (1912010201, 1017, 98);
-INSERT INTO s_score(sno, cid, score) VALUE (1912010201, 1018, 82);
-INSERT INTO s_score(sno, cid, score) VALUE (1912010201, 1019, 83);
-INSERT INTO s_score(sno, cid, score) VALUE (1912010201, 1020, 89);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010201, 1017, 98, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010201, 1018, 82, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010201, 1019, 83, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010201, 1020, 89, 0);
 
 -- 会计学3班学生
-INSERT INTO s_score(sno, cid, score) VALUE (1912010301, 1017, 89);
-INSERT INTO s_score(sno, cid, score) VALUE (1912010301, 1018, 67);
-INSERT INTO s_score(sno, cid, score) VALUE (1912010301, 1019, 80);
-INSERT INTO s_score(sno, cid, score) VALUE (1912010301, 1020, 74);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010301, 1017, 89, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010301, 1018, 67, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010301, 1019, 80, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912010301, 1020, 74, 0);
 
 -- 国际贸易1班
-INSERT INTO s_score(sno, cid, score) VALUE (1912020101, 1021, 80);
-INSERT INTO s_score(sno, cid, score) VALUE (1912020101, 1022, 82);
-INSERT INTO s_score(sno, cid, score) VALUE (1912020101, 1023, 62);
-INSERT INTO s_score(sno, cid, score) VALUE (1912020101, 1024, 50);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912020101, 1021, 80, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912020101, 1022, 82, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912020101, 1023, 62, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912020101, 1024, 50, 1);
 
 -- 国际贸易2班
-INSERT INTO s_score(sno, cid, score) VALUE (1912020201, 1021, 65);
-INSERT INTO s_score(sno, cid, score) VALUE (1912020201, 1022, 90);
-INSERT INTO s_score(sno, cid, score) VALUE (1912020201, 1023, 91);
-INSERT INTO s_score(sno, cid, score) VALUE (1912020201, 1024, 76);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912020201, 1021, 65, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912020201, 1022, 90, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912020201, 1023, 91, 0);
+INSERT INTO s_score (sno, cid, score, is_failed)
+VALUES (1912020201, 1024, 76, 0);
+
+CREATE TABLE roles
+(
+    username BIGINT      NOT NULL,
+    role     VARCHAR(50) NOT NULL
+);
+
+INSERT INTO roles(username, role)
+SELECT student.sno, 'STUDENT'
+FROM student;
+
+INSERT INTO roles(username, role)
+SELECT teacher.tno, 'TEACHER'
+FROM teacher;

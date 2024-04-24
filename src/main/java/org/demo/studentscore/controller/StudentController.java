@@ -1,10 +1,15 @@
 package org.demo.studentscore.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.demo.studentscore.common.R;
 import org.demo.studentscore.common.StatusEnum;
+import org.demo.studentscore.exceptions.DataNotFoundException;
+import org.demo.studentscore.exceptions.RecordAlreadyExistsException;
 import org.demo.studentscore.model.entity.Student;
 import org.demo.studentscore.model.vo.StudentVO;
 import org.demo.studentscore.service.StudentService;
+import org.slf4j.Logger;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,14 +18,83 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/student")
+@RequiredArgsConstructor
 public class StudentController {
-    StudentService studentService;
+    private final Logger logger;
+    private final StudentService studentService;
+    
+    /**
+     * 添加学生
+     *
+     * @param student 传入学生对象
+     * @return 返回插入结果 不返回data数据
+     */
+    @PostMapping
+    public R<?> addStudent(@Validated @RequestBody Student student) {
+        try {
+            Integer rows = studentService.addStudent(student);
+            if (rows > 0) return R.success(null);
+            else {
+                return R.fail(StatusEnum.FAIL);
+            }
+        } catch (RecordAlreadyExistsException e) {
+            return R.fail(StatusEnum.RECORD_ALREADY_EXISTS);
+        } catch (Exception e) {
+            logger.error(this.getClass().getName(), e);
+            return R.fail(StatusEnum.FAIL);
+        }
+    }
 
     /**
-     * 构造器注入 service 成员变量
+     * 删除学生<br/>
+     * 通过学号删除学生
+     * 在删除学生时会同时将学生的成绩一并删除
+     *
+     * @param sno 传入sno学号字段
+     * @return 返回删除结果
      */
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+    @DeleteMapping("/{sno}")
+    public R<?> removeStudent(@PathVariable("sno") String sno) {
+        System.out.println(sno);
+        Student student = new Student();
+        student.setSno(Long.valueOf(sno));
+        try {
+            Integer rows = studentService.removeStudent(student);
+            if (rows > 0) {
+                return R.success(null);
+            } else {
+                return R.fail(StatusEnum.FAIL);
+            }
+        } catch (IllegalArgumentException e) {
+            return R.fail(StatusEnum.INVALID_INPUT);
+        } catch (Exception e) {
+            logger.error(this.getClass().getName(), e);
+            return R.fail(StatusEnum.FAIL);
+        }
+    }
+
+    /**
+     * 修改学生<br/>
+     * 通过学号查询匹配的学生，并将记录按照传入的对象中对应的字段修改
+     *
+     * @param student 传入带有学生学号字段的对象
+     * @return 返回修改结果
+     */
+    @PutMapping
+    public R<?> modifyStudent(@Validated @RequestBody Student student) {
+        try {
+            Integer rows = studentService.modifyStudent(student);
+            if (rows > 0) {
+                return R.success(null);
+            } else {
+                return R.fail(StatusEnum.FAIL);
+            }
+        } catch (DataNotFoundException e) {
+            return R.fail(StatusEnum.RECORD_NOT_FOUND);
+        } catch (Exception e) {
+            logger.error(this.getClass().getName(), e);
+            return R.fail(StatusEnum.FAIL);
+        }
     }
 
     /**
@@ -42,62 +116,6 @@ public class StudentController {
         }
     }
 
-    /**
-     * 添加学生
-     *
-     * @param student 传入学生对象
-     * @return 返回插入结果 不返回data数据
-     */
-    @PostMapping
-    public R<?> addStudent(@RequestBody Student student) {
-        Integer rows = studentService.addStudent(student);
-        if (rows > 0) {
-            return R.success(null);
-        } else if (rows == -1) {
-            return R.fail(StatusEnum.RECORD_ALREADY_EXISTS);
-        } else {
-            return R.fail(StatusEnum.FAIL);
-        }
-    }
-
-    /**
-     * 修改学生<br/>
-     * 通过学号查询匹配的学生，并将记录按照传入的对象中对应的字段修改
-     *
-     * @param student 传入带有学生学号字段的对象
-     * @return 返回修改结果
-     */
-    @PutMapping
-    public R<?> modifyStudent(@RequestBody Student student) {
-        Integer rows = studentService.modifyStudent(student);
-        if (rows > 0) {
-            return R.success(null);
-        } else if (rows == -1) {
-            return R.fail(StatusEnum.RECORD_NOT_FOUND);
-        } else {
-            return R.fail(StatusEnum.FAIL);
-        }
-    }
-
-    /**
-     * 删除学生<br/>
-     * 通过学号删除学生
-     * 在删除学生时会同时将学生的成绩一并删除
-     *
-     * @param keywords 删除学生的关键字 sno学号字段
-     * @return 返回删除结果
-     */
-    @DeleteMapping
-    public R<?> removeStudent(@RequestParam Map<String, String> keywords) {
-        Integer rows = studentService.removeStudent(keywords);
-        if (rows > 0) {
-            return R.success(null);
-        } else if (rows == 0) {
-            return R.fail(StatusEnum.RECORD_NOT_FOUND);
-        } else {
-            return R.fail(StatusEnum.FAIL);
-        }
-    }
 
     /**
      * 将Student类转换为StudentVO对象 目的在于屏蔽Student类中的敏感字段
@@ -106,11 +124,7 @@ public class StudentController {
      * @return 返回StudentVO类型对象 仅返回学生基本信息
      */
     private StudentVO conventToVO(Student student) {
-        StudentVO studentVO = new StudentVO(student.getSno(),
-                student.getName(),
-                student.getEmail(),
-                student.getMid(),
-                student.getCid());
+        StudentVO studentVO = new StudentVO(student.getSno(), student.getName(), student.getEmail(), student.getMid(), student.getCid());
         return studentVO;
     }
 

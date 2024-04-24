@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @TableName("major")
 public class Major {
-    private Integer mid;
+    private Long mid;
     private String name;
-    private Integer majorsId;
+    private Long majorsId;
 }
