@@ -273,7 +273,8 @@ CREATE TABLE s_score
     is_failed BIT DEFAULT 0 COMMENT '是否挂科 0表示没有 1表示挂科',
     deleted   INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (sno) REFERENCES student (sno),
-    FOREIGN KEY (cid) REFERENCES course (cid)
+    FOREIGN KEY (cid) REFERENCES course (cid),
+    PRIMARY KEY (sno,cid)
 );
 
 -- 机械工程1班学生
@@ -401,13 +402,13 @@ INSERT INTO s_score (sno, cid, score, is_failed)
 VALUES (1911010201, 1012, 64, 0);
 
 INSERT INTO s_score (sno, cid, score, is_failed)
-VALUES (1911010102, 1009, 81, 0);
+VALUES (1911010202, 1009, 81, 0);
 INSERT INTO s_score (sno, cid, score, is_failed)
-VALUES (1911010102, 1010, 83, 0);
+VALUES (1911010202, 1010, 83, 0);
 INSERT INTO s_score (sno, cid, score, is_failed)
-VALUES (1911010102, 1011, 90, 0);
+VALUES (1911010202, 1011, 90, 0);
 INSERT INTO s_score (sno, cid, score, is_failed)
-VALUES (1911010102, 1012, 96, 0);
+VALUES (1911010202, 1012, 96, 0);
 
 -- 数据科学1班学生
 INSERT INTO s_score (sno, cid, score, is_failed)
@@ -471,7 +472,7 @@ VALUES (1912020201, 1024, 76, 0);
 
 CREATE TABLE roles
 (
-    username BIGINT      NOT NULL,
+    username BIGINT      PRIMARY KEY,
     role     VARCHAR(50) NOT NULL
 );
 

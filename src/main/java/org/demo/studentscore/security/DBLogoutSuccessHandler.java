@@ -1,6 +1,6 @@
 package org.demo.studentscore.security;
 
-import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson2.JSON;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,7 +16,7 @@ public class DBLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        String json = JSONUtils.toJSONString(R.success(null));
+        String json = JSON.toJSONString(R.success(null));
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().println(json);
     }

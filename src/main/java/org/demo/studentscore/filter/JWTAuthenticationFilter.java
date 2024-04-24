@@ -1,6 +1,6 @@
 package org.demo.studentscore.filter;
 
-import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson2.JSON;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -51,13 +51,13 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         String token = request.getHeader(tokenHeaderName);
         // 判断token是否为空
         if (!StringUtils.hasText(token)) {
-            String result = JSONUtils.toJSONString(R.fail(StatusEnum.TOKEN_IS_NULL));
+            String result = JSON.toJSONString(R.fail(StatusEnum.TOKEN_IS_NULL));
             response.getWriter().write(result);
             return;
         }
         // 判断token是否有效
         if (jwtUtils.isExpired(token)) {
-            String result = JSONUtils.toJSONString(R.fail(StatusEnum.UNAUTHORIZED_ACCESS));
+            String result = JSON.toJSONString(R.fail(StatusEnum.UNAUTHORIZED_ACCESS));
             response.getWriter().write(result);
             return;
         }
@@ -65,7 +65,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         String username = jwtUtils.parseToken(token).get("username", String.class);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (userDetails == null) {
-            String result = JSONUtils.toJSONString(R.fail(StatusEnum.UNAUTHORIZED_ACCESS));
+            String result = JSON.toJSONString(R.fail(StatusEnum.UNAUTHORIZED_ACCESS));
             response.getWriter().write(result);
             return;
         }

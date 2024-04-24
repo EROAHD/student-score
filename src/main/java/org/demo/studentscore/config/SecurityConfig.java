@@ -50,10 +50,16 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/score").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole())
                         .anyRequest().authenticated()
                 );
-        http.formLogin(AbstractHttpConfigurer::disable);
         http.sessionManagement(configurer ->
                 configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
+        http.logout(logout ->
+                logout.logoutSuccessHandler(logoutSuccessHandler)
+        );
+        http.exceptionHandling(configurer ->
+                configurer.authenticationEntryPoint(authenticationEntryPoint)
+        );
+        http.formLogin(AbstractHttpConfigurer::disable);
         http.csrf(AbstractHttpConfigurer::disable);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

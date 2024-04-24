@@ -12,6 +12,10 @@ GET http://localhost:80/score/1/2
 Content-Type: application/json
 token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjE5MTAwMTAxMDEiLCJleHAiOjE3MTQ1ODAwMDN9.V4BECCfJecdcEjHhYidZdh0C5ZFPFMzB4SsB-nD5UGY
 
+###
+POST http://localhost:80/logout
+Content-Type: application/json
+
 
 
 #### Student
