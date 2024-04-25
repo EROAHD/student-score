@@ -1,8 +1,8 @@
 package org.demo.studentscore.model.vo;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class SysUserVO {
     private String username;
     private String password;

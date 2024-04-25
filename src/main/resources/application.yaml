@@ -7,6 +7,9 @@ spring:
     url: jdbc:mariadb://192.168.254.129:3306/student_score
     username: root
     password: 10909090
+  devtools:
+    livereload:
+      port: 35555
 
 mybatis-plus:
   configuration:

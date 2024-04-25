@@ -37,8 +37,4 @@ public class R<T> {
     public static R<?> fail(StatusEnum statusEnum) {
         return new R<>(statusEnum.getCode(), statusEnum.getName(), null);
     }
-
-    public static R<?> fail(String msg) {
-        return new R<>(StatusEnum.FAIL.getCode(), msg, null);
-    }
 }

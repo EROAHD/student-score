@@ -10,7 +10,6 @@ import org.demo.studentscore.common.R;
 import org.demo.studentscore.common.StatusEnum;
 import org.demo.studentscore.util.JWTUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +24,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private final JWTUtils jwtUtils;
-    @Lazy
     private final UserDetailsService userDetailsService;
 
     // 通过配置文件读取登录请求uri
@@ -43,7 +41,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         response.setContentType("application/json");
         String requestURI = request.getRequestURI();
         // 如果登录请求uri包含登录路径 则直接放行
-        if (requestURI.startsWith(loginUri)) {
+        if (requestURI.equals(loginUri)) {
             filterChain.doFilter(request, response);
             return;
         }

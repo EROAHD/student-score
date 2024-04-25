@@ -26,6 +26,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public R<?> login(@RequestBody SysUserVO user) {
+        System.out.println(user);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         if (authenticate != null && authenticate.isAuthenticated()) {

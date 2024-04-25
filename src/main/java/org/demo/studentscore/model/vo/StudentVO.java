@@ -14,5 +14,7 @@ public class StudentVO {
     private String name;
     private String email;
     private Long mid;
+    private String major_name;
     private Long cid;
+    private String class_name;
 }

@@ -24,7 +24,6 @@ CREATE TABLE major
     mid       BIGINT PRIMARY KEY COMMENT '专业编号',
     name      VARCHAR(50) NOT NULL UNIQUE COMMENT '专业名称',
     majors_id BIGINT      NOT NULL COMMENT '专业大类编号',
-    deleted   INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (majors_id) REFERENCES majors (majors_id)
 );
 /* 插入工程学专业 */
@@ -44,7 +43,6 @@ CREATE TABLE teacher
     password VARCHAR(500) NOT NULL COMMENT '教师密码',
     name     VARCHAR(50)  NOT NULL COMMENT '教师名称',
     phone    VARCHAR(11)  NOT NULL COMMENT '手机号',
-    deleted  INT DEFAULT 0 COMMENT '逻辑删除'
 );
 
 -- 插入教师数据
@@ -96,7 +94,6 @@ CREATE TABLE course
     name    VARCHAR(50)     NOT NULL UNIQUE COMMENT '课程名称',
     mid     BIGINT          NOT NULL COMMENT '课程对应专业编号',
     tno     BIGINT UNSIGNED NOT NULL COMMENT '教师编号',
-    deleted INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (mid) REFERENCES major (mid),  -- 专业编号作为外键
     FOREIGN KEY (tno) REFERENCES teacher (tno) -- 任课教师作为外键
 );
@@ -169,7 +166,6 @@ CREATE TABLE s_class
     cid     BIGINT PRIMARY KEY COMMENT '班级编号',
     name    VARCHAR(20) NOT NULL COMMENT '班级名称',
     mid     BIGINT      NOT NULL COMMENT '专业编号',
-    deleted INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (mid) REFERENCES major (mid) # 专业编号作为外键
 );
 /* 插入机械工程班级 */
@@ -203,7 +199,6 @@ CREATE TABLE student
     email    VARCHAR(100) NOT NULL COMMENT '学生邮箱',
     mid      BIGINT       NOT NULL COMMENT '专业编号',
     cid      BIGINT       NOT NULL COMMENT '班级编号',
-    deleted  INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (cid) REFERENCES s_class (cid), # 班级编号作为外键
     FOREIGN KEY (mid) REFERENCES major (mid)    # 专业编号作为外键
 );
@@ -271,7 +266,6 @@ CREATE TABLE s_score
     cid       BIGINT NOT NULL COMMENT '课程编号',
     score     INT UNSIGNED COMMENT '成绩',
     is_failed BIT DEFAULT 0 COMMENT '是否挂科 0表示没有 1表示挂科',
-    deleted   INT DEFAULT 0 COMMENT '逻辑删除',
     FOREIGN KEY (sno) REFERENCES student (sno),
     FOREIGN KEY (cid) REFERENCES course (cid),
     PRIMARY KEY (sno,cid)
