@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 实现将数据库实体对象转换为VO对象，同时使用 Mybatis plus 的mapper接口将VO对象所需要的属性进行查询
+ */
 @Component
 @RequiredArgsConstructor
 public class ScoreVOConverter {
@@ -23,12 +26,18 @@ public class ScoreVOConverter {
     private final TeacherMapper teacherMapper;
     private final CourseMapper courseMapper;
 
+    /**
+     * 将单个对象转换为VO对象
+     */
     public ScoreVO convertToVO(Score score) {
         Course course = courseMapper.selectOne(new LambdaUpdateWrapper<Course>().eq(Course::getCid, score.getCid()));
         Teacher teacher = teacherMapper.selectOne(new LambdaUpdateWrapper<Teacher>().eq(Teacher::getTno, course.getTno()));
         return new ScoreVO(score.getCid(), course.getName(), score.getScore(), teacher.getName(), score.getIsFailed());
     }
 
+    /**
+     * 将对象数组转换为VO对象
+     */
     public List<ScoreVO> convertToVOList(List<Score> scores) {
         List<ScoreVO> scoreVOS = new ArrayList<>();
         for (Score score : scores) {

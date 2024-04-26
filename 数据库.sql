@@ -3,6 +3,17 @@ DROP DATABASE IF EXISTS student_score;
 CREATE DATABASE student_score;
 USE student_score;
 
+# 创建管理员表
+CREATE TABLE admin
+(
+    admin_id BIGINT PRIMARY KEY COMMENT '管理员账号',
+    password VARCHAR(500) NOT NULL COMMENT '管理员密码',
+    name     VARCHAR(50)  NOT NULL COMMENT '管理员名称'
+);
+INSERT INTO admin(admin_id, password, name) VALUE (8573924610,
+                                                   '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                   'Admin');
+
 # 专业大类表
 CREATE TABLE majors
 (
@@ -42,58 +53,58 @@ CREATE TABLE teacher
     tno      BIGINT UNSIGNED PRIMARY KEY COMMENT '教师编号',
     password VARCHAR(500) NOT NULL COMMENT '教师密码',
     name     VARCHAR(50)  NOT NULL COMMENT '教师名称',
-    phone    VARCHAR(11)  NOT NULL COMMENT '手机号',
+    phone    VARCHAR(11)  NOT NULL COMMENT '手机号'
 );
 
 -- 插入教师数据
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1234567890, '李思源', 13812345678, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1234567890, '李思源', 13812345678, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (2345678901, '周芳华', 15923456789, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (2345678901, '周芳华', 15923456789, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (3456789012, '王美丽', 18734567890, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (3456789012, '王美丽', 18734567890, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1567890123, '赵小康', 13845678901, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1567890123, '赵小康', 13845678901, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1678901234, '钱晓红', 15956789012, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1678901234, '钱晓红', 15956789012, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1789012345, '孙志强', 18067890123, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1789012345, '孙志强', 18067890123, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1890123456, '吴艳芳', 13178901234, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1890123456, '吴艳芳', 13178901234, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1901234567, '郑秀英', 15289012345, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1901234567, '郑秀英', 15289012345, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1012345678, '汪文杰', 18390123456, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1012345678, '汪文杰', 18390123456, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1234567891, '陆鹏飞', 13501234567, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1234567891, '陆鹏飞', 13501234567, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1345678902, '罗小龙', 15612345678, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1345678902, '罗小龙', 15612345678, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1456789013, '谭晓明', 18723456789, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1456789013, '谭晓明', 18723456789, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1567890124, '黄俊杰', 13834567890, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1567890124, '黄俊杰', 13834567890, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1678901235, '曹建国', 15945678901, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1678901235, '曹建国', 15945678901, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1789012346, '彭小芳', 18056789012, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1789012346, '彭小芳', 18056789012, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1890123457, '萧明珠', 13167890123, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1890123457, '萧明珠', 13167890123, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1901234568, '魏志强', 15278901234, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1901234568, '魏志强', 15278901234, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1012345679, '蒋丽丽', 18389012345, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1012345679, '蒋丽丽', 18389012345, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1234567892, '沈红梅', 13490123456, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1234567892, '沈红梅', 13490123456, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 INSERT INTO teacher(tno, name, phone, password)
-VALUES (1345678903, '周小龙', 15601234567, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO');
+VALUES (1345678903, '周小龙', 15601234567, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 
 -- 创建课程表
 CREATE TABLE course
 (
-    cid     BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '课程编号',
-    name    VARCHAR(50)     NOT NULL UNIQUE COMMENT '课程名称',
-    mid     BIGINT          NOT NULL COMMENT '课程对应专业编号',
-    tno     BIGINT UNSIGNED NOT NULL COMMENT '教师编号',
+    cid  BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '课程编号',
+    name VARCHAR(50)     NOT NULL UNIQUE COMMENT '课程名称',
+    mid  BIGINT          NOT NULL COMMENT '课程对应专业编号',
+    tno  BIGINT UNSIGNED NOT NULL COMMENT '教师编号',
     FOREIGN KEY (mid) REFERENCES major (mid),  -- 专业编号作为外键
     FOREIGN KEY (tno) REFERENCES teacher (tno) -- 任课教师作为外键
 );
@@ -163,9 +174,9 @@ VALUES ('海关法与实务', 1202, 1789012346);
 # 班级表
 CREATE TABLE s_class
 (
-    cid     BIGINT PRIMARY KEY COMMENT '班级编号',
-    name    VARCHAR(20) NOT NULL COMMENT '班级名称',
-    mid     BIGINT      NOT NULL COMMENT '专业编号',
+    cid  BIGINT PRIMARY KEY COMMENT '班级编号',
+    name VARCHAR(20) NOT NULL COMMENT '班级名称',
+    mid  BIGINT      NOT NULL COMMENT '专业编号',
     FOREIGN KEY (mid) REFERENCES major (mid) # 专业编号作为外键
 );
 /* 插入机械工程班级 */
@@ -207,57 +218,97 @@ CREATE TABLE student
 */
 
 /* 机械工程1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010101, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e', '龙衡冲',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010101,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '龙衡冲',
                                                                  '11627451824@outlook.com', 1001, 100101);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010102, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '宣屹昶',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010102,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '宣屹昶',
                                                                  '51811826388@163.com', 1001, 100101);
 /* 机械工程2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010201, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '瞿铮丛',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010201,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '瞿铮丛',
                                                                  '71771258427@gmail.com', 1001, 100102);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010202, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '唐冲军',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010202,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '唐冲军',
                                                                  '19936491337@yahoo.com', 1001, 100102);
 /* 机械工程3班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010301, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '陈祺岚',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010301,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '陈祺岚',
                                                                  '70253453356@126.com', 1001, 100103);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010302, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '郜冕元',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010302,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '郜冕元',
                                                                  '68391606781@outlook.com', 1001, 100103);
 /* 电子工程1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020101, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '丁昂歌',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020101,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '丁昂歌',
                                                                  '18201093658@126.com', 1002, 100201);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020102, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '梅卉维',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020102,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '梅卉维',
                                                                  '51537485583@yahoo.com', 1002, 100201);
 /* 电子工程2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020201, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '苗颖义',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020201,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '苗颖义',
                                                                  '91884912580@163.com', 1002, 100202);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020202, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '龙剑丞',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020202,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '龙剑丞',
                                                                  '90446517973@163.com', 1002, 100202);
 /* 软件工程1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010101, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '谭晓香',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010101,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '谭晓香',
                                                                  '74306478223@outlook.com', 1101, 110101);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010102, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '石韦涌',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010102,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '石韦涌',
                                                                  '73990427998@163.com', 1101, 110101);
 /* 软件工程2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010201, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '仲荷莲',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010201,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '仲荷莲',
                                                                  '36702485386@126.com', 1101, 110102);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010202, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '袁益煜',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010202,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '袁益煜',
                                                                  '99602985054@yahoo.com', 1101, 110102);
 /* 数据科学1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911020101, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '祝印珑',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911020101,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '祝印珑',
                                                                  '16354350177@outlook.com', 1102, 110201);
 /* 会计学1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010101, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '叶澜秦',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010101,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '叶澜秦',
                                                                  '13729116400@163.com', 1102, 120101);
 /* 会计学2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010201, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '祖漪椒',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010201,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '祖漪椒',
                                                                  '58312596850@yahoo.com', 1102, 120102);
 /* 会计学3班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010301, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '芮垚刚',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010301,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '芮垚刚',
                                                                  '14222740660@gmail.com', 1102, 120103);
 /* 国际贸易1班 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020101, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '冯博靖',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020101,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '冯博靖',
                                                                  '42088064830@126.com', 1102, 120201);
 /* 国际贸易2班 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020201, '{bcrypt}$2a$10$79Zyap4rMSQQvYnIY1pqsuNb/Gk4701vAFv2W3J9KM5t9LgTAOjvO', '翟元云',
+INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020201,
+                                                                 '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e',
+                                                                 '翟元云',
                                                                  '29291703269@yahoo.com', 1102, 120202);
 
 CREATE TABLE s_score
@@ -268,7 +319,7 @@ CREATE TABLE s_score
     is_failed BIT DEFAULT 0 COMMENT '是否挂科 0表示没有 1表示挂科',
     FOREIGN KEY (sno) REFERENCES student (sno),
     FOREIGN KEY (cid) REFERENCES course (cid),
-    PRIMARY KEY (sno,cid)
+    PRIMARY KEY (sno, cid)
 );
 
 -- 机械工程1班学生
@@ -466,7 +517,7 @@ VALUES (1912020201, 1024, 76, 0);
 
 CREATE TABLE roles
 (
-    username BIGINT      PRIMARY KEY,
+    username BIGINT PRIMARY KEY,
     role     VARCHAR(50) NOT NULL
 );
 
@@ -477,3 +528,7 @@ FROM student;
 INSERT INTO roles(username, role)
 SELECT teacher.tno, 'TEACHER'
 FROM teacher;
+
+INSERT INTO roles(username, role)
+SELECT admin.admin_id, 'ADMIN'
+FROM admin;

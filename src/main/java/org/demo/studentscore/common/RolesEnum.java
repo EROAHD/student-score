@@ -2,6 +2,9 @@ package org.demo.studentscore.common;
 
 import lombok.Getter;
 
+/**
+ * 用户角色信息的枚举类
+ */
 @Getter
 public enum RolesEnum {
     ROLE_ADMIN("ADMIN"),

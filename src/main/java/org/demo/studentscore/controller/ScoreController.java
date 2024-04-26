@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 学生成绩相关
+ */
 @RequestMapping("/score")
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +26,16 @@ import java.util.Map;
 public class ScoreController {
     private final ScoreService scoreService;
     private final ScoreVOConverter scoreVOConverter;
-    
+
+    /**
+     * 通过SpringSecurity中获取的用户名信息，以分页的形式返回学生的成绩
+     *
+     * @param pageSize       每页显示大小
+     * @param pageNum        页号
+     * @param keywords       传入关键字来按照要求筛选成绩
+     * @param authentication SpringSecurity 验证对象 通过此对象获取用户名
+     * @return 返回分页后的学生成绩信息
+     */
     @GetMapping("/{pageSize}/{pageNum}")
     public R<?> getScore(@PathVariable("pageSize") Integer pageSize, @PathVariable("pageNum") Integer pageNum, @RequestParam Map<String, String> keywords, Authentication authentication) {
         String sno = authentication.getName();

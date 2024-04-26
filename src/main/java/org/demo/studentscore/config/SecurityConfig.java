@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -18,8 +19,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+/**
+ * 配置Spring Security 相关设置
+ */
 @SpringBootConfiguration
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfig {
     @Value("${jwt.loginUri}")
     private String loginUri;
@@ -47,6 +52,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(loginUri).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/score").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole())
                         .requestMatchers(HttpMethod.GET, "/score").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole())
                         .anyRequest().authenticated()
                 );

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * 实现SpringSecurity 中的UserDetails接口 便于后续将获取到的
+ */
 public class SysUser implements UserDetails {
     private final String username;
     private final String password;

@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.demo.studentscore.common.R;
 import org.demo.studentscore.common.StatusEnum;
 import org.demo.studentscore.util.JWTUtils;
@@ -20,8 +21,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * 自定义jwt验证过滤器 配合SpringSecurity实现jwt登陆验证
+ */
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private final JWTUtils jwtUtils;
     private final UserDetailsService userDetailsService;
@@ -50,19 +55,22 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         // 判断token是否为空
         if (!StringUtils.hasText(token)) {
             String result = JSON.toJSONString(R.fail(StatusEnum.TOKEN_IS_NULL));
+            log.warn(this.getClass() + ":" + "token为空");
             response.getWriter().write(result);
             return;
         }
         // 判断token是否有效
         if (jwtUtils.isExpired(token)) {
             String result = JSON.toJSONString(R.fail(StatusEnum.UNAUTHORIZED_ACCESS));
+            log.warn(this.getClass() + ":" + "token无效");
             response.getWriter().write(result);
             return;
         }
-        //
+        // 通过token中获取到的用户名查询用户
         String username = jwtUtils.parseToken(token).get("username", String.class);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (userDetails == null) {
+            log.warn(this.getClass() + ":" + "token包含的用户名不存在");
             String result = JSON.toJSONString(R.fail(StatusEnum.UNAUTHORIZED_ACCESS));
             response.getWriter().write(result);
             return;

@@ -2,6 +2,7 @@ package org.demo.studentscore.common;
 
 /**
  * 状态码枚举
+ * 将所有可能出现的结果信息列举出来，作为返回到前端的code 状态码 和 msg 提示信息
  */
 public enum StatusEnum {
     SUCCESS(200, "success"),

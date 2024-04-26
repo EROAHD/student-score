@@ -1,6 +1,7 @@
 package org.demo.studentscore.security;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.demo.studentscore.service.impl.SysUserService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class SysUserDetailsService implements UserDetailsService {
     private final SysUserService sysUserService;
 

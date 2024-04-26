@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerIntercep
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * 配置 Mybatis Plus 相关
+ */
 @SpringBootConfiguration
 public class MyBatisPlusConfig {
     @Bean

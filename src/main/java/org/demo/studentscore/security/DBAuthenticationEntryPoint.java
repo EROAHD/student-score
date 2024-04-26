@@ -20,7 +20,7 @@ public class DBAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-        log.error(this.getClass() + ":" + authException.getClass() + ":" + authException.getLocalizedMessage());
+        log.error(this.getClass() + ":异常:" + authException.getClass() + ":" + authException.getLocalizedMessage());
         R<?> fail = R.fail(StatusEnum.UNAUTHORIZED_ACCESS);
         if (authException instanceof BadCredentialsException) {
             fail = R.fail(StatusEnum.INVALID_CREDENTIALS);
