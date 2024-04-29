@@ -12,6 +12,7 @@ import org.demo.studentscore.model.entity.Roles;
 import org.demo.studentscore.model.entity.Student;
 import org.demo.studentscore.model.entity.Teacher;
 import org.demo.studentscore.security.SysUser;
+import org.demo.studentscore.service.SysUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class SysUserService {
+public class SysUserServiceImpl implements SysUserService {
     // 获取用户权限的Mapper
     private final RolesMapper rolesMapper;
     // 实体类操作Mapper

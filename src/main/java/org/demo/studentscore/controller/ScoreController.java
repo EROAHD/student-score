@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.demo.studentscore.common.R;
 import org.demo.studentscore.common.StatusEnum;
 import org.demo.studentscore.exceptions.DataNotFoundException;
+import org.demo.studentscore.model.converter.PageInfoConverter;
 import org.demo.studentscore.model.converter.ScoreVOConverter;
 import org.demo.studentscore.model.entity.Score;
 import org.demo.studentscore.model.vo.ScoreVO;
@@ -19,13 +20,14 @@ import java.util.Map;
 /**
  * 学生成绩相关
  */
-@RequestMapping("/score")
 @RestController
+@RequestMapping("/score")
 @RequiredArgsConstructor
 @Slf4j
 public class ScoreController {
     private final ScoreService scoreService;
     private final ScoreVOConverter scoreVOConverter;
+    private final PageInfoConverter pageInfoConverter;
 
     /**
      * 通过SpringSecurity中获取的用户名信息，以分页的形式返回学生的成绩
@@ -39,7 +41,7 @@ public class ScoreController {
     @GetMapping("/{pageSize}/{pageNum}")
     public R<?> getScore(@PathVariable("pageSize") Integer pageSize, @PathVariable("pageNum") Integer pageNum, @RequestParam Map<String, String> keywords, Authentication authentication) {
         String sno = authentication.getName();
-        List<Score> scores = null;
+        List<Score> scores;
         try {
             scores = scoreService.getScores(sno, pageSize, pageNum, keywords);
         } catch (DataNotFoundException e) {
@@ -47,6 +49,9 @@ public class ScoreController {
             return R.fail(StatusEnum.RECORD_NOT_FOUND);
         }
         List<ScoreVO> scoreVOS = scoreVOConverter.convertToVOList(scores);
-        return R.success(new PageInfo<>(scoreVOS));
+        PageInfo<Score> scorePageInfo = new PageInfo<>(scores);
+        PageInfo<ScoreVO> scoreVOPageInfo = new PageInfo<>(scoreVOS);
+        pageInfoConverter.pageInfoToVO(scorePageInfo, scoreVOPageInfo);
+        return R.success(scoreVOPageInfo);
     }
 }

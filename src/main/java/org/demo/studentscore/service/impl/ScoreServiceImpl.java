@@ -8,7 +8,6 @@ import org.demo.studentscore.mapper.ScoreMapper;
 import org.demo.studentscore.model.entity.Score;
 import org.demo.studentscore.service.ScoreService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,7 @@ public class ScoreServiceImpl implements ScoreService {
         //
         LambdaQueryWrapper<Score> scoreLambdaQueryWrapper = new LambdaQueryWrapper<>();
         // 如果传入的学号不为空则用学号从成绩表中查询所有的成绩
-        scoreLambdaQueryWrapper.eq(StringUtils.hasText(sno), Score::getSno, sno);
+        scoreLambdaQueryWrapper.eq(Score::getSno, sno);
         //
         List<Score> scores = scoreMapper.selectList(scoreLambdaQueryWrapper);
         if (scores == null || scores.isEmpty()) {

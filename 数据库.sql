@@ -19,8 +19,7 @@ CREATE TABLE majors
 (
     majors_id   BIGINT PRIMARY KEY COMMENT '专业大类编号',
     name        VARCHAR(50)   NOT NULL UNIQUE COMMENT '专业大类名称',
-    description VARCHAR(1000) NOT NULL COMMENT '专业大类描述',
-    deleted     INT DEFAULT 0 COMMENT '逻辑删除'
+    description VARCHAR(1000) NOT NULL COMMENT '专业大类描述'
 );
 INSERT INTO majors(majors_id, name, description) VALUE (10, '工程学',
                                                         '工程学是一门科学与技术领域，致力于设计、构建和维护各种物理结构、设备和系统。在这个专业大类中，学生可以选择专攻机械工程或电子工程等专业。机械工程涉及机械设计、热力学和材料力学等领域，而电子工程则涉及电路分析、通信原理和微处理器应用等方面的知识。');

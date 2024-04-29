@@ -2,7 +2,7 @@ package org.demo.studentscore.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.demo.studentscore.service.impl.SysUserService;
+import org.demo.studentscore.service.SysUserService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +17,7 @@ public class SysUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // 通过调用SysUserService中的方法实现查询所有用户
         SysUser user = sysUserService.getUserByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);

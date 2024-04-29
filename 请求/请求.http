@@ -38,17 +38,23 @@ token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Ijg1NzM5MjQ2MTAiLCJleHAiOjE3MTQ3MTcw
 
 ###
 ##
-GET http://localhost:80/score/2/1
+GET http://localhost:80/score/10/1
 Content-Type: application/json
 token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjEwMTIzNDU2NzgiLCJleHAiOjE3MTQ3MTc2ODR9.y3IFO6Wtt4S7cKoXTn2l86Ix5n_PCT-49TE9hpX5ZfA
 
 ###
 ## 学生
-GET http://localhost:80/score/2/1
+GET http://localhost:80/score/10/1
 Content-Type: application/json
 token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjE5MTAwMTAyMDIiLCJleHAiOjE3MTQ3MTgxMzV9.4R35PlqldJ6drGGUpb_UGjDuiWC7ZRpw1h-0FG6QoL8
 
-###
+### 课程查询接口
+## 学生
+GET http://localhost:80/course/2/1
+Content-Type: application/json
+token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjE5MTAwMTAyMDIiLCJleHAiOjE3MTQ3MTgxMzV9.4R35PlqldJ6drGGUpb_UGjDuiWC7ZRpw1h-0FG6QoL8
+
+### 其他接口
 POST http://localhost:80/logout
 Content-Type: application/json
 
