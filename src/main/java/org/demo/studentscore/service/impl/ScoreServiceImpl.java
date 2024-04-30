@@ -19,12 +19,12 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public List<Score> getScores(String sno, Integer pageSize, Integer pageNum, Map<String, String> keywords) throws DataNotFoundException {
-        PageHelper.startPage(pageNum, pageSize);
         //
         LambdaQueryWrapper<Score> scoreLambdaQueryWrapper = new LambdaQueryWrapper<>();
         // 如果传入的学号不为空则用学号从成绩表中查询所有的成绩
         scoreLambdaQueryWrapper.eq(Score::getSno, sno);
         //
+        PageHelper.startPage(pageNum, pageSize);
         List<Score> scores = scoreMapper.selectList(scoreLambdaQueryWrapper);
         if (scores == null || scores.isEmpty()) {
             throw new DataNotFoundException("未找到成绩");
