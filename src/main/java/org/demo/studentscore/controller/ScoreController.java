@@ -50,9 +50,7 @@ public class ScoreController {
         }
         List<ScoreVO> scoreVOS = scoreVOConverter.convertToVOList(scores);
         PageInfo<Score> scorePageInfo = new PageInfo<>(scores);
-        System.out.println(scorePageInfo);
         PageInfo<ScoreVO> scoreVOPageInfo = new PageInfo<>(scoreVOS);
-        System.out.println(scoreVOPageInfo);
         pageInfoConverter.pageInfoToVO(scorePageInfo, scoreVOPageInfo);
         return R.success(scoreVOPageInfo);
     }
