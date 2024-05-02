@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 自定义 ###
+DockerBuild/student-score.jar
