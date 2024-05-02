@@ -9,5 +9,5 @@
 
 #### 2.构建Docker镜像
 
-- 需要确保系统已安装Java并设置JAVA_HOME 环境变量
 - 使用Linux执行项目根目录下的`DockerBuild.sh`脚本
+- 此操作会自动下载jdk并配置环境变量，并使用自带的maven warp构建项目

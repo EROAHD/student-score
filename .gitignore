@@ -33,4 +33,6 @@ build/
 .vscode/
 
 ### 自定义 ###
-DockerBuild/student-score.jar
+/microsoft-jdk-21.0.3-linux-x64.tar.gz
+/DockerBuild/student-score.jar
+/jdk-21.0.3+9
