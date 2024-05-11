@@ -10,7 +10,7 @@ Content-Type: application/json
 
 ###
 ## 测试老师账户登录
-POST http://localhost:80/login
+POST http://192.168.254.129:8080/login
 Content-Type: application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: application/json
 
 ###
 ## 测试学生账户登录
-POST http://localhost:80/login
+POST http://192.168.254.129:8080/login
 Content-Type: application/json
 
 {
