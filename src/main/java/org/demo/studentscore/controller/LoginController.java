@@ -45,7 +45,7 @@ public class LoginController {
             map.put(tokenHeaderName, token);
             return R.success(map);
         } else {
-            log.info(this.getClass() + ":" + "用户[" + user.getUsername() + "]登陆失败");
+            log.info(this.getClass() + ":" + "用户名为[" + user.getUsername() + "]的用户登陆失败");
             return R.fail(StatusEnum.INVALID_CREDENTIALS);
         }
     }
