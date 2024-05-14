@@ -52,9 +52,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(loginUri).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/score").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole())
-                        .requestMatchers(HttpMethod.GET, "/score").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole())
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.GET, "/student/info").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole())
+                        .requestMatchers(HttpMethod.GET, "/teacher/info").hasAnyAuthority(RolesEnum.ROLE_TEACHER.getRole())
+                        .requestMatchers(HttpMethod.GET, "/student/{pageSize}/{pageNum}").hasAnyAuthority(RolesEnum.ROLE_TEACHER.getRole(), RolesEnum.ROLE_ADMIN.getRole())
+                        .anyRequest().permitAll()
                 );
         http.sessionManagement(configurer ->
                 configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

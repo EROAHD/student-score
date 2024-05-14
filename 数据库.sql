@@ -531,3 +531,11 @@ FROM teacher;
 INSERT INTO roles(username, role)
 SELECT admin.admin_id, 'ADMIN'
 FROM admin;
+
+# 其他需求所需表
+CREATE TABLE avatar
+(
+    user_id     BIGINT       NOT NULL,
+    save_path   VARCHAR(100) NOT NULL,
+    upload_date DATE         NOT NULL
+);

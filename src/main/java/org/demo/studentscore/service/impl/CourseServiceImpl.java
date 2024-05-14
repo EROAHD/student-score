@@ -28,6 +28,7 @@ public class CourseServiceImpl implements CourseService {
             throw new DataNotFoundException(this.getClass() + ":学生未找到");
         }
         LambdaQueryWrapper<Course> courseLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        // 然后通过专业查找课程
         courseLambdaQueryWrapper.eq(Course::getMid, student.getMid());
         PageHelper.startPage(pageNum, pageSize);
         List<Course> courses = courseMapper.selectList(courseLambdaQueryWrapper);

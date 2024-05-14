@@ -1,0 +1,12 @@
+POST localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": 1012345678,
+  "password": "password"
+}
+
+###
+GET localhost:8080/student/10/1
+Content-Type: application/json
+token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjEwMTIzNDU2NzgiLCJleHAiOjE3MTYyMjE1ODJ9.MWFzutb8iCKsG82h6BvvKiAxCosemzOgJ2ou2WsH6JE

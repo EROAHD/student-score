@@ -1,9 +1,12 @@
 package org.demo.studentscore.common;
 
+import lombok.Getter;
+
 /**
  * 状态码枚举
  * 将所有可能出现的结果信息列举出来，作为返回到前端的code 状态码 和 msg 提示信息
  */
+@Getter
 public enum StatusEnum {
     SUCCESS(200, "success"),
     FAIL(500, "fail"),
@@ -16,8 +19,9 @@ public enum StatusEnum {
     NETWORK_ERROR(2002, "网络错误"),
     SERVER_ERROR(2003, "服务器错误"),
     TOKEN_IS_NULL(2004, "token为空"),
-    INVALID_CREDENTIALS(3001, "用户名或密码错误");
-
+    INVALID_CREDENTIALS(3001, "用户名或密码错误"),
+    INVALID_FILE(4001, "文件无效"),
+    FILE_UPLOAD_FAIL(4002, "文件上传失败");
 
     private final Integer code;
     private final String name;
@@ -27,11 +31,4 @@ public enum StatusEnum {
         this.name = name;
     }
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

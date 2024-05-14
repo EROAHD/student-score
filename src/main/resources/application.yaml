@@ -1,4 +1,5 @@
 spring:
+
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mariadb://192.168.254.129:3306/student_score
@@ -7,12 +8,14 @@ spring:
   devtools:
     livereload:
       port: 35555
-  security:
-    roles:
-      admin: 'ADMIN'
-      teacher: 'TEACHER'
-      student: 'STUDENT'
+  mvc:
+    static-path-pattern: /upload/**
+  web:
+    resources:
+      static-locations: file:upload/
 
+upload:
+  path: upload/
 
 mybatis-plus:
   configuration:
