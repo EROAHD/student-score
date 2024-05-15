@@ -13,6 +13,8 @@ spring:
   web:
     resources:
       static-locations: file:upload/
+  jackson:
+    time-zone: GMT+8
 
 upload:
   path: upload/

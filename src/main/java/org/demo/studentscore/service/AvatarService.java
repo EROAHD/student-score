@@ -6,5 +6,7 @@ import org.demo.studentscore.model.entity.Avatar;
 import java.util.List;
 
 public interface AvatarService {
-    List<Avatar> getAvatars(String userId) throws DataNotFoundException;
+    List<Avatar> getHistoryAvatars(String userId) throws DataNotFoundException;
+
+    Avatar getLatestAvatar(String userId) throws DataNotFoundException;
 }

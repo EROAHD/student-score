@@ -13,8 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -44,18 +42,17 @@ public class AvatarController {
     }
 
     /**
-     * 返回用户头像
+     * 返回用户的最新头像
      */
     @GetMapping
-    public R<?> send(Authentication authentication) {
+    public R<?> sendLatest(Authentication authentication) {
         String userId = authentication.getName();
-        List<Avatar> avatars = null;
+        Avatar avatar = null;
         try {
-            avatars = avatarService.getAvatars(userId);
+            avatar = avatarService.getLatestAvatar(userId);
         } catch (DataNotFoundException e) {
             return R.fail(StatusEnum.RECORD_NOT_FOUND);
         }
-        return R.success(avatars);
+        return R.success(avatar);
     }
-
 }

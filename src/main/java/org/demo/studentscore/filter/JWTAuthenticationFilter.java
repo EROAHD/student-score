@@ -34,6 +34,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     // 通过配置文件读取登录请求uri
     @Value("${jwt.loginUri}")
     private String loginUri;
+    @Value("${upload.path}")
+    private String staticResPath;
 
     // 包含token的请求头名称
     @Value("${jwt.tokenHeaderName}")
@@ -46,7 +48,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         response.setContentType("application/json");
         String requestURI = request.getRequestURI();
         // 如果登录请求uri包含登录路径 则直接放行
-        if (requestURI.equals(loginUri)) {
+        boolean isLoginUrl = requestURI.equals(loginUri);
+        // 判断是否为静态资源路径
+        boolean isStaticResPath = requestURI.startsWith("/" + staticResPath);
+        // 如果是上面几种路径则直接放行
+        if (isLoginUrl || isStaticResPath) {
             filterChain.doFilter(request, response);
             return;
         }

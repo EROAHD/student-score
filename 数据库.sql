@@ -51,51 +51,52 @@ CREATE TABLE teacher
 (
     tno      BIGINT UNSIGNED PRIMARY KEY COMMENT '教师编号',
     password VARCHAR(500) NOT NULL COMMENT '教师密码',
+    sex      BIT          NOT NULL COMMENT '教师性别',
     name     VARCHAR(50)  NOT NULL COMMENT '教师名称',
     phone    VARCHAR(11)  NOT NULL COMMENT '手机号'
 );
 
 -- 插入教师数据
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1234567890, '李思源', 13812345678, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (2345678901, '周芳华', 15923456789, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (3456789012, '王美丽', 18734567890, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1567890123, '赵小康', 13845678901, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1678901234, '钱晓红', 15956789012, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1789012345, '孙志强', 18067890123, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1890123456, '吴艳芳', 13178901234, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1901234567, '郑秀英', 15289012345, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1012345678, '汪文杰', 18390123456, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1234567891, '陆鹏飞', 13501234567, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1345678902, '罗小龙', 15612345678, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1456789013, '谭晓明', 18723456789, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1567890124, '黄俊杰', 13834567890, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1678901235, '曹建国', 15945678901, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1789012346, '彭小芳', 18056789012, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1890123457, '萧明珠', 13167890123, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1901234568, '魏志强', 15278901234, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1012345679, '蒋丽丽', 18389012345, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1234567892, '沈红梅', 13490123456, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
-INSERT INTO teacher(tno, name, phone, password)
-VALUES (1345678903, '周小龙', 15601234567, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1234567890, '李思源', 1, 13812345678, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (2345678901, '周芳华', 0, 15923456789, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (3456789012, '王美丽', 0, 18734567890, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1567890123, '赵小康', 1, 13845678901, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1678901234, '钱晓红', 0, 15956789012, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1789012345, '孙志强', 1, 18067890123, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1890123456, '吴艳芳', 0, 13178901234, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1901234567, '郑秀英', 0, 15289012345, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1012345678, '汪文杰', 1, 18390123456, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1234567891, '陆鹏飞', 1, 13501234567, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1345678902, '罗小龙', 1, 15612345678, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1456789013, '谭晓明', 1, 18723456789, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1567890124, '黄俊杰', 1, 13834567890, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1678901235, '曹建国', 1, 15945678901, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1789012346, '彭小芳', 0, 18056789012, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1890123457, '萧明珠', 0, 13167890123, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1901234568, '魏志强', 1, 15278901234, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1012345679, '蒋丽丽', 0, 18389012345, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1234567892, '沈红梅', 0, 13490123456, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
+INSERT INTO teacher(tno, name, sex, phone, password)
+VALUES (1345678903, '周小龙', 1, 15601234567, '{bcrypt}$2a$10$rxuiO6lTHHNHgbR8uPlSju/JviRYoh8WVLqCwGeodmjYJjkCDNN0e');
 
 -- 创建课程表
 CREATE TABLE course

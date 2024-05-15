@@ -20,6 +20,8 @@ public enum StatusEnum {
     SERVER_ERROR(2003, "服务器错误"),
     TOKEN_IS_NULL(2004, "token为空"),
     INVALID_CREDENTIALS(3001, "用户名或密码错误"),
+    OLD_PASSWORD_ERROR(3002, "旧密码错误"),
+    INVALID_PASSWORD_FORMAT(3003, "密码格式无效"),
     INVALID_FILE(4001, "文件无效"),
     FILE_UPLOAD_FAIL(4002, "文件上传失败");
 

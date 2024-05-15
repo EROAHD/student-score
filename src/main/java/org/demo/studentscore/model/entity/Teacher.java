@@ -7,7 +7,8 @@ import lombok.Data;
 public class Teacher {
     @TableId
     private Long tno;
-    private String password;
     private String name;
+    private String sex;
+    private String password;
     private String phone;
 }

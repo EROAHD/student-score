@@ -17,7 +17,12 @@ public class TeacherVOConverter {
     private final SClassMapper sClassMapper;
 
     public TeacherVO convertToVO(Teacher teacher) {
-        return new TeacherVO(teacher.getTno(), teacher.getName(), teacher.getPhone());
+        return new TeacherVO(
+                teacher.getTno(),
+                teacher.getName(),
+                teacher.getSex(),
+                teacher.getPhone().replaceAll("(?<=.{3}).*(?=.{3}$)", "***")
+        );
     }
 
     public List<TeacherVO> convertToVOList(List<Teacher> Teachers) {

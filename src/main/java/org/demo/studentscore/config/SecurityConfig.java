@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -55,7 +57,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/student/info").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole())
                         .requestMatchers(HttpMethod.GET, "/teacher/info").hasAnyAuthority(RolesEnum.ROLE_TEACHER.getRole())
                         .requestMatchers(HttpMethod.GET, "/student/{pageSize}/{pageNum}").hasAnyAuthority(RolesEnum.ROLE_TEACHER.getRole(), RolesEnum.ROLE_ADMIN.getRole())
-                        .anyRequest().permitAll()
+                        .requestMatchers("/upload/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/password").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole(), RolesEnum.ROLE_TEACHER.getRole(), RolesEnum.ROLE_ADMIN.getRole())
+                        .anyRequest().authenticated()
                 );
         http.sessionManagement(configurer ->
                 configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -75,5 +79,10 @@ public class SecurityConfig {
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

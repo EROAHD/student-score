@@ -18,7 +18,7 @@ public class AvatarServiceImpl implements AvatarService {
     private final AvatarMapper avatarMapper;
 
     @Override
-    public List<Avatar> getAvatars(String userId) throws DataNotFoundException {
+    public List<Avatar> getHistoryAvatars(String userId) throws DataNotFoundException {
         LambdaQueryWrapper<Avatar> avatarLambdaQueryWrapper = new LambdaQueryWrapper<>();
         avatarLambdaQueryWrapper.eq(Avatar::getUserId, userId);
         List<Avatar> avatars = avatarMapper.selectList(avatarLambdaQueryWrapper);
@@ -26,5 +26,17 @@ public class AvatarServiceImpl implements AvatarService {
             throw new DataNotFoundException("未找到用户" + userId + "的任何头像");
         }
         return avatars;
+    }
+
+    @Override
+    public Avatar getLatestAvatar(String userId) throws DataNotFoundException {
+        LambdaQueryWrapper<Avatar> avatarLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        avatarLambdaQueryWrapper.eq(Avatar::getUserId, userId);
+        avatarLambdaQueryWrapper.orderByDesc(Avatar::getUploadDate);
+        List<Avatar> avatars = avatarMapper.selectList(avatarLambdaQueryWrapper);
+        if (avatars == null || avatars.isEmpty()) {
+            throw new DataNotFoundException("未找到用户" + userId + "的任何头像");
+        }
+        return avatars.getFirst();
     }
 }
