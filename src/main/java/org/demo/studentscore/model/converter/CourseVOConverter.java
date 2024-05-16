@@ -19,7 +19,7 @@ public class CourseVOConverter {
 
     public CourseVO convertToVO(Course course) {
         Teacher teacher = teacherMapper.selectOne(new LambdaUpdateWrapper<Teacher>().eq(Teacher::getTno, course.getTno()));
-        return new CourseVO(course.getCid(), course.getName(), teacher.getName());
+        return new CourseVO(course.getCid(), course.getName(), teacher.getName(), course.getTypeId());
     }
 
     /**

@@ -54,11 +54,11 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(loginUri).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/student/info").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole())
-                        .requestMatchers(HttpMethod.GET, "/teacher/info").hasAnyAuthority(RolesEnum.ROLE_TEACHER.getRole())
-                        .requestMatchers(HttpMethod.GET, "/student/{pageSize}/{pageNum}").hasAnyAuthority(RolesEnum.ROLE_TEACHER.getRole(), RolesEnum.ROLE_ADMIN.getRole())
-                        .requestMatchers("/upload/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/password").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole(), RolesEnum.ROLE_TEACHER.getRole(), RolesEnum.ROLE_ADMIN.getRole())
+                        .requestMatchers(HttpMethod.GET, "/student/**").hasAnyAuthority(RolesEnum.ROLE_STUDENT.getRole())
+                        .requestMatchers(HttpMethod.GET, "/teacher/**").hasAnyAuthority(RolesEnum.ROLE_TEACHER.getRole())
+                        .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(RolesEnum.ROLE_ADMIN.getRole())
+                        .requestMatchers("/upload/**").permitAll()
                         .anyRequest().authenticated()
                 );
         http.sessionManagement(configurer ->

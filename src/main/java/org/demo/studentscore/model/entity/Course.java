@@ -10,4 +10,5 @@ public class Course {
     private String name;
     private Long mid;
     private Long tno;
+    private Integer typeId;
 }

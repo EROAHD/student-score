@@ -7,9 +7,13 @@ import org.demo.studentscore.common.R;
 import org.demo.studentscore.common.StatusEnum;
 import org.demo.studentscore.exceptions.DataNotFoundException;
 import org.demo.studentscore.model.converter.PageInfoConverter;
+import org.demo.studentscore.model.converter.ScoreVOConverter;
 import org.demo.studentscore.model.converter.StudentVOConverter;
+import org.demo.studentscore.model.entity.Score;
 import org.demo.studentscore.model.entity.Student;
+import org.demo.studentscore.model.vo.ScoreVO;
 import org.demo.studentscore.model.vo.StudentVO;
+import org.demo.studentscore.service.ScoreService;
 import org.demo.studentscore.service.StudentService;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +29,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class StudentController {
+    private final ScoreService scoreService;
+    private final ScoreVOConverter scoreVOConverter;
     private final StudentService studentService;
     private final StudentVOConverter studentVOConverter;
     private final PageInfoConverter pageInfoConverter;
@@ -46,18 +52,29 @@ public class StudentController {
         return R.success(studentVO);
     }
 
-    @GetMapping("/{pageSize}/{pageNum}")
-    public R<?> getStudent(@PathVariable("pageSize") Integer pageSize, @PathVariable("pageNum") Integer pageNum, @RequestParam Map<String, String> keywords) {
-        List<Student> students;
+    /**
+     * 通过SpringSecurity中获取的用户名信息，以分页的形式返回学生的成绩
+     *
+     * @param pageSize       每页显示大小
+     * @param pageNum        页号
+     * @param keywords       传入关键字来按照要求筛选成绩
+     * @param authentication SpringSecurity 验证对象 通过此对象获取用户名
+     * @return 返回分页后的学生成绩信息
+     */
+    @GetMapping("/score/{pageSize}/{pageNum}")
+    public R<?> getScore(@PathVariable("pageSize") Integer pageSize, @PathVariable("pageNum") Integer pageNum, @RequestParam Map<String, String> keywords, Authentication authentication) {
+        String sno = authentication.getName();
+        List<Score> scores;
         try {
-            students = studentService.getStudent(pageSize, pageNum, keywords);
+            scores = scoreService.getScores(sno, pageSize, pageNum, keywords);
         } catch (DataNotFoundException e) {
+            log.warn(this.getClass() + ":学号为" + sno + "的学生未找到任何成绩");
             return R.fail(StatusEnum.RECORD_NOT_FOUND);
         }
-        List<StudentVO> studentVOS = studentVOConverter.convertToVOList(students);
-        PageInfo<Student> studentPageInfo = new PageInfo<>(students);
-        PageInfo<StudentVO> studentVOPageInfo = new PageInfo<>(studentVOS);
-        pageInfoConverter.pageInfoToVO(studentPageInfo, studentVOPageInfo);
-        return R.success(studentVOPageInfo);
+        List<ScoreVO> scoreVOS = scoreVOConverter.convertToVOList(scores);
+        PageInfo<Score> scorePageInfo = new PageInfo<>(scores);
+        PageInfo<ScoreVO> scoreVOPageInfo = new PageInfo<>(scoreVOS);
+        pageInfoConverter.pageInfoToVO(scorePageInfo, scoreVOPageInfo);
+        return R.success(scoreVOPageInfo);
     }
 }

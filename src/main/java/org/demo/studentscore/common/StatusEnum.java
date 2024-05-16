@@ -23,7 +23,8 @@ public enum StatusEnum {
     OLD_PASSWORD_ERROR(3002, "旧密码错误"),
     INVALID_PASSWORD_FORMAT(3003, "密码格式无效"),
     INVALID_FILE(4001, "文件无效"),
-    FILE_UPLOAD_FAIL(4002, "文件上传失败");
+    FILE_UPLOAD_FAIL(4002, "文件上传失败"),
+    REQUEST_PARAMS_ERROR(4003, "请求参数错误");
 
     private final Integer code;
     private final String name;

@@ -43,7 +43,7 @@ public class LoginController {
             String token = jwtUtils.createToken("username", username);
             Map<String, Object> map = new HashMap<>();
             map.put(tokenHeaderName, token);
-            map.put("userType", authenticate.getAuthorities().iterator().next().getAuthority());
+            map.put("userType", authenticate.getAuthorities().iterator().next().getAuthority().toLowerCase());
             return R.success(map);
         } else {
             log.info(this.getClass() + ":" + "用户名为[" + user.getUsername() + "]的用户登陆失败");
