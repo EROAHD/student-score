@@ -8,12 +8,14 @@ import org.demo.studentscore.mapper.AvatarMapper;
 import org.demo.studentscore.model.entity.Avatar;
 import org.demo.studentscore.service.AvatarService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class AvatarServiceImpl implements AvatarService {
     private final AvatarMapper avatarMapper;
 

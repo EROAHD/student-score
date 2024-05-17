@@ -4,9 +4,13 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName("s_score")
 public class Score {
     private Long sno; // 学号

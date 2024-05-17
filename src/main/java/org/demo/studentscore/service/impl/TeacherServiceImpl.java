@@ -6,13 +6,12 @@ import lombok.RequiredArgsConstructor;
 import org.demo.studentscore.common.constants.CourseTypesConstants;
 import org.demo.studentscore.exceptions.DataNotFoundException;
 import org.demo.studentscore.exceptions.IncompleteRequestParameterException;
+import org.demo.studentscore.exceptions.InsertDataFailException;
 import org.demo.studentscore.mapper.*;
-import org.demo.studentscore.model.entity.Course;
-import org.demo.studentscore.model.entity.SElective;
-import org.demo.studentscore.model.entity.Student;
-import org.demo.studentscore.model.entity.Teacher;
+import org.demo.studentscore.model.entity.*;
 import org.demo.studentscore.service.TeacherService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class TeacherServiceImpl implements TeacherService {
     private final TeacherMapper teacherMapper;
     private final CourseMapper courseMapper;
@@ -107,5 +107,31 @@ public class TeacherServiceImpl implements TeacherService {
         return students;
     }
 
-
+    @Override
+    public void setStuScore(Long sno, Long courseId, Integer score) throws DataNotFoundException, InsertDataFailException {
+        Student student = studentMapper.selectById(sno);
+        if (student == null) {
+            throw new DataNotFoundException("未找到学号为" + sno + "的学生");
+        }
+        Course course = courseMapper.selectById(courseId);
+        if (course == null) {
+            throw new DataNotFoundException("未找到课程号为" + courseId + "的课程");
+        }
+        Score dbScore = scoreMapper.selectOne(new LambdaUpdateWrapper<Score>().eq(Score::getSno, sno).eq(Score::getCid, courseId));
+        if (dbScore == null) {
+            Boolean isFailed = score < 60;
+            int insert = scoreMapper.insert(new Score(sno, courseId, score, isFailed));
+            if (insert < 1) {
+                throw new InsertDataFailException("插入成绩失败");
+            }
+        } else {
+            Boolean isFailed = score < 60;
+            LambdaUpdateWrapper<Score> scoreLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            scoreLambdaUpdateWrapper.eq(Score::getSno, sno).eq(Score::getCid, courseId).set(Score::getScore, score);
+            int update = scoreMapper.update(new Score(sno, courseId, score, isFailed), scoreLambdaUpdateWrapper);
+            if (update < 1) {
+                throw new InsertDataFailException("修改成绩失败");
+            }
+        }
+    }
 }

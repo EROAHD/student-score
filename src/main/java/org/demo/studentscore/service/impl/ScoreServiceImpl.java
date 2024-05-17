@@ -8,12 +8,14 @@ import org.demo.studentscore.mapper.ScoreMapper;
 import org.demo.studentscore.model.entity.Score;
 import org.demo.studentscore.service.ScoreService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ScoreServiceImpl implements ScoreService {
     private final ScoreMapper scoreMapper;
 

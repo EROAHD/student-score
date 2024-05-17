@@ -15,6 +15,7 @@ public enum StatusEnum {
     RECORD_NOT_FOUND(1002, "记录未找到"),
     RECORD_ALREADY_EXISTS(1003, "记录已存在"),
     UNAUTHORIZED_ACCESS(1004, "未经授权的访问"),
+    RECORD_INSERT_FAIL(1005, "记录插入失败"),
     DATABASE_ERROR(2001, "数据库错误"),
     NETWORK_ERROR(2002, "网络错误"),
     SERVER_ERROR(2003, "服务器错误"),

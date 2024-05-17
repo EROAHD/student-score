@@ -7,11 +7,13 @@ import org.demo.studentscore.mapper.CourseMapper;
 import org.demo.studentscore.service.CourseService;
 import org.demo.studentscore.service.FileService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class CourseServiceImpl implements CourseService {
     private final FileService fileService;
     private final CourseMapper courseMapper;

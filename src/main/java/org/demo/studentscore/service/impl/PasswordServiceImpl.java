@@ -12,10 +12,12 @@ import org.demo.studentscore.model.entity.Teacher;
 import org.demo.studentscore.service.PasswordService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class PasswordServiceImpl implements PasswordService {
     private final PasswordEncoder passwordEncoder;
     private final StudentMapper studentMapper;

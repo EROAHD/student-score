@@ -7,6 +7,7 @@ import org.demo.studentscore.common.R;
 import org.demo.studentscore.common.StatusEnum;
 import org.demo.studentscore.exceptions.DataNotFoundException;
 import org.demo.studentscore.exceptions.IncompleteRequestParameterException;
+import org.demo.studentscore.exceptions.InsertDataFailException;
 import org.demo.studentscore.model.converter.PageInfoConverter;
 import org.demo.studentscore.model.converter.StudentScoreVOConverter;
 import org.demo.studentscore.model.converter.TeacherVOConverter;
@@ -89,5 +90,17 @@ public class TeacherController {
         PageInfo<StudentScoreVO> studentScoreVOPageInfo = new PageInfo<>(studentScoreVOS);
         pageInfoConverter.pageInfoToVO(studentPageInfo, studentScoreVOPageInfo);
         return R.success(studentScoreVOPageInfo);
+    }
+
+    @PutMapping("/student/{sno}/course/{courseId}/score/{score}")
+    public R<?> setStuScore(@PathVariable("sno") Long sno, @PathVariable("courseId") Long courseId, @PathVariable("score") Integer score) {
+        try {
+            teacherService.setStuScore(sno, courseId, score);
+        } catch (DataNotFoundException e) {
+            return R.fail(StatusEnum.RECORD_NOT_FOUND);
+        } catch (InsertDataFailException e) {
+            return R.fail(StatusEnum.RECORD_INSERT_FAIL);
+        }
+        return R.success(null);
     }
 }

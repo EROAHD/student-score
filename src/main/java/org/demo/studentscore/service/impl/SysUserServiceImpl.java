@@ -14,6 +14,7 @@ import org.demo.studentscore.model.entity.Teacher;
 import org.demo.studentscore.security.SysUser;
 import org.demo.studentscore.service.SysUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SysUserServiceImpl implements SysUserService {
     // 获取用户权限的Mapper
     private final RolesMapper rolesMapper;

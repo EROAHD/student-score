@@ -9,6 +9,7 @@ import org.demo.studentscore.model.entity.Avatar;
 import org.demo.studentscore.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -18,6 +19,7 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class FileServiceImpl implements FileService {
     @Value("${upload.path}")
     private String uploadPath;
