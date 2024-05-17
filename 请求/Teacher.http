@@ -10,3 +10,8 @@ Content-Type: application/json
 GET localhost:8080/teacher/course/5/1?type=4
 Content-Type: application/json
 token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjEwMTIzNDU2NzgiLCJleHAiOjE3MTY0ODM1MzB9.QJps9XRvAc09QUx_pAL1ImelmbAMS3IRuYex3hFwb-4
+
+###
+GET http://localhost:8080/teacher/student/2/1?courseType=1&courseId=1012
+Content-Type: application/json
+token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjEwMTIzNDU2NzgiLCJleHAiOjE3MTY0ODM1MzB9.QJps9XRvAc09QUx_pAL1ImelmbAMS3IRuYex3hFwb-4

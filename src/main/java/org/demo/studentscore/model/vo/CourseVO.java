@@ -12,6 +12,6 @@ import lombok.ToString;
 public class CourseVO {
     private Long cid; // 课程id
     private String name; // 课程名称
-    private String teacher_name; // 教师名称
-    private Integer type_id; // 课程类型
+    private String teacherName; // 教师名称
+    private Integer typeId; // 课程类型
 }

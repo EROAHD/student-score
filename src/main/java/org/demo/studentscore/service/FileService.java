@@ -6,4 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FileService {
     void saveFile(MultipartFile file, UserFileEnum userFileEnum, Long userId) throws DataNotFoundException;
+
+    void saveFileByName(MultipartFile file, String fileName) throws DataNotFoundException;
 }

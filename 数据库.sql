@@ -109,7 +109,7 @@ CREATE TABLE course_types
 INSERT INTO course_types(type_id, type_name) VALUE (1, '必修');
 INSERT INTO course_types(type_id, type_name) VALUE (2, '选修');
 
--- 创建必修课程表
+-- 创建课程表
 CREATE TABLE course
 (
     cid     BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '课程编号',
@@ -322,6 +322,7 @@ INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020201,
                                                                  @password,
                                                                  '翟元云',
                                                                  '29291703269@yahoo.com', 1102, 120202);
+
 
 CREATE TABLE s_score
 (
@@ -551,3 +552,15 @@ CREATE TABLE avatar
     save_path   VARCHAR(100) NOT NULL,
     upload_date TIMESTAMP    NOT NULL
 );
+
+# 创建学生选课表
+CREATE TABLE s_elective
+(
+    sno BIGINT NOT NULL COMMENT '学号',
+    cid BIGINT NOT NULL COMMENT '学生选课id'
+);
+
+INSERT INTO s_elective(sno, cid) VALUE (1012345678, 1011);
+INSERT INTO s_elective(sno, cid) VALUE (1012345678, 1014);
+INSERT INTO s_elective(sno, cid) VALUE (1012345678, 1018);
+INSERT INTO s_elective(sno, cid) VALUE (1012345678, 1022);

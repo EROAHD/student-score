@@ -22,7 +22,7 @@ public class FileServiceImpl implements FileService {
     @Value("${upload.path}")
     private String uploadPath;
     private final AvatarMapper avatarMapper;
-    
+
     public void saveFile(MultipartFile file, UserFileEnum userFileEnum, Long userId) throws DataNotFoundException {
         // 判断存放文件的路径是否存在
         File uploadFileSaveDir = new File(uploadPath);
@@ -61,6 +61,27 @@ public class FileServiceImpl implements FileService {
             break;
             default:
                 break;
+        }
+    }
+
+    public void saveFileByName(MultipartFile file, String fileName) throws DataNotFoundException {
+        // 判断存放文件的路径是否存在
+        File uploadFileSaveDir = new File(uploadPath);
+        if (!uploadFileSaveDir.exists()) {
+            boolean dirCreated = uploadFileSaveDir.mkdirs();
+            if (!dirCreated) {
+                throw new DataNotFoundException("上传目标文件夹创建失败");
+            }
+        }
+        // 获取文件名称
+
+        // 磁盘中存储的目标文件路径
+        File uploadFile = new File(uploadFileSaveDir.getAbsolutePath() + File.separator + fileName);
+        log.info("文件上传到：" + uploadFile.getAbsolutePath());
+        try {
+            file.transferTo(uploadFile);
+        } catch (IOException e) {
+            log.warn("文件对象" + file + "保存失败");
         }
     }
 }
