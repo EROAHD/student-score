@@ -8,6 +8,6 @@ import lombok.Getter;
 public class TeacherVO {
     private Long tno;
     private String name;
-    private String sex;
+    private Boolean sex;
     private String phone;
 }

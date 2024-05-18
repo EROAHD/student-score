@@ -10,5 +10,5 @@ public class Major {
     @TableId
     private Long mid;
     private String name;
-    private Long majorsId;
+    private Long majorsId; // 专业大类id
 }

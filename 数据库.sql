@@ -10,9 +10,11 @@ CREATE TABLE admin
 (
     admin_id BIGINT PRIMARY KEY COMMENT '管理员账号',
     password VARCHAR(500) NOT NULL COMMENT '管理员密码',
-    name     VARCHAR(50)  NOT NULL COMMENT '管理员名称'
+    name     VARCHAR(50)  NOT NULL COMMENT '管理员名称',
+    email    VARCHAR(200) NOT NULL COMMENT '管理员邮箱',
+    phone    VARCHAR(11)  NOT NUll COMMENT '管理员手机号'
 );
-INSERT INTO admin(admin_id, password, name) VALUE (8573924610, @password, 'Admin');
+INSERT INTO admin(admin_id, password, name, email, phone) VALUE (8573924610, @password, '赵天', '8573924610@protonmail.com', 13942331234);
 
 # 专业大类表
 CREATE TABLE majors
@@ -157,9 +159,9 @@ VALUES ('软件项目管理', 1101, 1456789013, 1);
 INSERT INTO course(name, mid, tno, type_id)
 VALUES ('数据分析与可视化', 1102, 1567890123, 1);
 INSERT INTO course(name, mid, tno, type_id)
-VALUES ('机器学习', null, 1678901235, 2);
+VALUES ('机器学习', null, 1012345678, 2);
 INSERT INTO course(name, mid, tno, type_id)
-VALUES ('数据挖掘', 1102, 1789012346, 1);
+VALUES ('数据挖掘', 1102, 1012345678, 1);
 INSERT INTO course(name, mid, tno, type_id)
 VALUES ('大数据技术', 1102, 1890123457, 1);
 
@@ -219,6 +221,7 @@ CREATE TABLE student
     sno      BIGINT UNSIGNED PRIMARY KEY COMMENT '学号',
     password VARCHAR(500) NOT NULL COMMENT '登录密码',
     name     VARCHAR(50)  NOT NULL COMMENT '学生姓名',
+    sex      BIT          NOT NULL COMMENT '学生性别',
     email    VARCHAR(100) NOT NULL COMMENT '学生邮箱',
     mid      BIGINT       NOT NULL COMMENT '专业编号',
     cid      BIGINT       NOT NULL COMMENT '班级编号',
@@ -230,98 +233,98 @@ CREATE TABLE student
 */
 
 /* 机械工程1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010101,
-                                                                 @password,
-                                                                 '龙衡冲',
-                                                                 '11627451824@outlook.com', 1001, 100101);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010102,
-                                                                 @password,
-                                                                 '宣屹昶',
-                                                                 '51811826388@163.com', 1001, 100101);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1910010101,
+                                                                      @password,
+                                                                      '龙衡冲', 1,
+                                                                      '11627451824@outlook.com', 1001, 100101);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1910010102,
+                                                                      @password,
+                                                                      '宣屹昶', 1,
+                                                                      '51811826388@163.com', 1001, 100101);
 /* 机械工程2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010201,
-                                                                 @password,
-                                                                 '瞿铮丛',
-                                                                 '71771258427@gmail.com', 1001, 100102);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010202,
-                                                                 @password,
-                                                                 '唐冲军',
-                                                                 '19936491337@yahoo.com', 1001, 100102);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1910010201,
+                                                                      @password,
+                                                                      '瞿铮丛', 1,
+                                                                      '71771258427@gmail.com', 1001, 100102);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1910010202,
+                                                                      @password,
+                                                                      '唐冲军', 1,
+                                                                      '19936491337@yahoo.com', 1001, 100102);
 /* 机械工程3班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010301,
-                                                                 @password,
-                                                                 '陈祺岚',
-                                                                 '70253453356@126.com', 1001, 100103);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910010302,
-                                                                 @password,
-                                                                 '郜冕元',
-                                                                 '68391606781@outlook.com', 1001, 100103);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1910010301,
+                                                                      @password,
+                                                                      '陈祺岚', 1,
+                                                                      '70253453356@126.com', 1001, 100103);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1910010302,
+                                                                      @password,
+                                                                      '郜冕元', 1,
+                                                                      '68391606781@outlook.com', 1001, 100103);
 /* 电子工程1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020101,
-                                                                 @password,
-                                                                 '丁昂歌',
-                                                                 '18201093658@126.com', 1002, 100201);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020102,
-                                                                 @password,
-                                                                 '梅卉维',
-                                                                 '51537485583@yahoo.com', 1002, 100201);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1910020101,
+                                                                      @password,
+                                                                      '丁昂歌', 1,
+                                                                      '18201093658@126.com', 1002, 100201);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1910020102,
+                                                                      @password,
+                                                                      '梅卉维', 0,
+                                                                      '51537485583@yahoo.com', 1002, 100201);
 /* 电子工程2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020201,
-                                                                 @password,
-                                                                 '苗颖义',
-                                                                 '91884912580@163.com', 1002, 100202);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1910020202,
-                                                                 @password,
-                                                                 '龙剑丞',
-                                                                 '90446517973@163.com', 1002, 100202);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1910020201,
+                                                                      @password,
+                                                                      '苗颖义', 1,
+                                                                      '91884912580@163.com', 1002, 100202);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1910020202,
+                                                                      @password,
+                                                                      '龙剑丞', 1,
+                                                                      '90446517973@163.com', 1002, 100202);
 /* 软件工程1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010101,
-                                                                 @password,
-                                                                 '谭晓香',
-                                                                 '74306478223@outlook.com', 1101, 110101);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010102,
-                                                                 @password,
-                                                                 '石韦涌',
-                                                                 '73990427998@163.com', 1101, 110101);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1911010101,
+                                                                      @password,
+                                                                      '谭晓香', 0,
+                                                                      '74306478223@outlook.com', 1101, 110101);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1911010102,
+                                                                      @password,
+                                                                      '石韦涌', 1,
+                                                                      '73990427998@163.com', 1101, 110101);
 /* 软件工程2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010201,
-                                                                 @password,
-                                                                 '仲荷莲',
-                                                                 '36702485386@126.com', 1101, 110102);
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911010202,
-                                                                 @password,
-                                                                 '袁益煜',
-                                                                 '99602985054@yahoo.com', 1101, 110102);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1911010201,
+                                                                      @password,
+                                                                      '仲荷莲', 0,
+                                                                      '36702485386@126.com', 1101, 110102);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1911010202,
+                                                                      @password,
+                                                                      '袁益煜', 1,
+                                                                      '99602985054@yahoo.com', 1101, 110102);
 /* 数据科学1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1911020101,
-                                                                 @password,
-                                                                 '祝印珑',
-                                                                 '16354350177@outlook.com', 1102, 110201);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1911020101,
+                                                                      @password,
+                                                                      '祝印珑', 0,
+                                                                      '16354350177@outlook.com', 1102, 110201);
 /* 会计学1班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010101,
-                                                                 @password,
-                                                                 '叶澜秦',
-                                                                 '13729116400@163.com', 1102, 120101);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1912010101,
+                                                                      @password,
+                                                                      '叶澜秦', 1,
+                                                                      '13729116400@163.com', 1102, 120101);
 /* 会计学2班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010201,
-                                                                 @password,
-                                                                 '祖漪椒',
-                                                                 '58312596850@yahoo.com', 1102, 120102);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1912010201,
+                                                                      @password,
+                                                                      '祖漪椒', 1,
+                                                                      '58312596850@yahoo.com', 1102, 120102);
 /* 会计学3班学生 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912010301,
-                                                                 @password,
-                                                                 '芮垚刚',
-                                                                 '14222740660@gmail.com', 1102, 120103);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1912010301,
+                                                                      @password,
+                                                                      '芮垚刚', 1,
+                                                                      '14222740660@gmail.com', 1102, 120103);
 /* 国际贸易1班 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020101,
-                                                                 @password,
-                                                                 '冯博靖',
-                                                                 '42088064830@126.com', 1102, 120201);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1912020101,
+                                                                      @password,
+                                                                      '冯博靖', 1,
+                                                                      '42088064830@126.com', 1102, 120201);
 /* 国际贸易2班 */
-INSERT INTO student(sno, password, name, email, mid, cid) VALUE (1912020201,
-                                                                 @password,
-                                                                 '翟元云',
-                                                                 '29291703269@yahoo.com', 1102, 120202);
+INSERT INTO student(sno, password, name, sex, email, mid, cid) VALUE (1912020201,
+                                                                      @password,
+                                                                      '翟元云', 0,
+                                                                      '29291703269@yahoo.com', 1102, 120202);
 
 
 CREATE TABLE s_score
@@ -560,7 +563,7 @@ CREATE TABLE s_elective
     cid BIGINT NOT NULL COMMENT '学生选课id'
 );
 
-INSERT INTO s_elective(sno, cid) VALUE (1012345678, 1011);
-INSERT INTO s_elective(sno, cid) VALUE (1012345678, 1014);
-INSERT INTO s_elective(sno, cid) VALUE (1012345678, 1018);
-INSERT INTO s_elective(sno, cid) VALUE (1012345678, 1022);
+INSERT INTO s_elective(sno, cid) VALUE (1910010101, 1011);
+INSERT INTO s_elective(sno, cid) VALUE (1910010101, 1014);
+INSERT INTO s_elective(sno, cid) VALUE (1910010101, 1018);
+INSERT INTO s_elective(sno, cid) VALUE (1910010101, 1022);

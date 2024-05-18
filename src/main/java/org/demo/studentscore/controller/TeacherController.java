@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.demo.studentscore.common.R;
 import org.demo.studentscore.common.StatusEnum;
 import org.demo.studentscore.exceptions.DataNotFoundException;
+import org.demo.studentscore.exceptions.IllegalParameterException;
 import org.demo.studentscore.exceptions.IncompleteRequestParameterException;
 import org.demo.studentscore.exceptions.InsertDataFailException;
 import org.demo.studentscore.model.converter.PageInfoConverter;
@@ -21,7 +22,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/teacher")
@@ -47,35 +47,31 @@ public class TeacherController {
         return R.success(TeacherVO);
     }
 
-    @GetMapping("/course/{pageSize}/{pageNum}")
+    @GetMapping("/course/{courseType}")
     public R<?> getTeacherCourse(Authentication authentication,
-                                 @PathVariable("pageSize") Integer pageSize,
-                                 @PathVariable("pageNum") Integer pageNum,
-                                 @RequestParam Map<String, String> keywords) {
+                                 @PathVariable("courseType") String courseType) {
         //
-        if (keywords.get("type") == null)
+        if (courseType == null)
             return R.fail(StatusEnum.REQUEST_PARAMS_ERROR);
         String tno = authentication.getName();
         List<Course> courses = null;
         try {
-            courses = teacherService.getTeacherCourse(tno, pageSize, pageNum, keywords);
+            courses = teacherService.getTeacherCourse(tno, courseType);
         } catch (IncompleteRequestParameterException e) {
             return R.fail(StatusEnum.REQUEST_PARAMS_ERROR);
         }
         if (courses == null) {
             return R.fail(StatusEnum.RECORD_NOT_FOUND);
         }
-        PageInfo<Course> coursePageInfo = new PageInfo<>(courses);
-        return R.success(coursePageInfo);
+        return R.success(courses);
     }
 
-    @GetMapping("/student/{pageSize}/{pageNum}")
-    public R<?> getStudents(Authentication authentication, @PathVariable("pageSize") Integer pageSize,
-                            @PathVariable("pageNum") Integer pageNum, @RequestParam Map<String, String> keywords) {
+    @GetMapping("/students/{courseType}/{courseId}")
+    public R<?> getStudents(Authentication authentication, @PathVariable("courseType") String courseType, @PathVariable("courseId") Long courseId) {
         String tno = authentication.getName();
         List<Student> students = null;
         try {
-            students = teacherService.getStudents(tno, pageSize, pageNum, keywords);
+            students = teacherService.getStudents(tno, courseType, courseId);
         } catch (IncompleteRequestParameterException e) {
             return R.fail(StatusEnum.REQUEST_PARAMS_ERROR);
         } catch (DataNotFoundException e) {
@@ -84,7 +80,6 @@ public class TeacherController {
         if (students == null || students.isEmpty()) {
             return R.fail(StatusEnum.RECORD_NOT_FOUND);
         }
-        String courseId = keywords.get("courseId");
         List<StudentScoreVO> studentScoreVOS = studentScoreVOConverter.convertToVOList(students, courseId);
         PageInfo<Student> studentPageInfo = new PageInfo<>(students);
         PageInfo<StudentScoreVO> studentScoreVOPageInfo = new PageInfo<>(studentScoreVOS);
@@ -100,6 +95,8 @@ public class TeacherController {
             return R.fail(StatusEnum.RECORD_NOT_FOUND);
         } catch (InsertDataFailException e) {
             return R.fail(StatusEnum.RECORD_INSERT_FAIL);
+        } catch (IllegalParameterException e) {
+            return R.fail(StatusEnum.REQUEST_PARAMS_ERROR);
         }
         return R.success(null);
     }

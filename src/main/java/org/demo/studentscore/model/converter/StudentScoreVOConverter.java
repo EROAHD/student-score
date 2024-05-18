@@ -21,7 +21,7 @@ public class StudentScoreVOConverter {
     private final MajorMapper majorMapper;
     private final SClassMapper sClassMapper;
 
-    public StudentScoreVO convertToVO(Student student, String courseId) {
+    public StudentScoreVO convertToVO(Student student, Long courseId) {
         Course course = courseMapper.selectOne(new LambdaUpdateWrapper<Course>().eq(Course::getCid, courseId));
         Score score = scoreMapper.selectOne(new LambdaUpdateWrapper<Score>().eq(Score::getCid, courseId).eq(Score::getSno, student.getSno()));
         Major major = majorMapper.selectById(student.getMid());
@@ -50,7 +50,7 @@ public class StudentScoreVOConverter {
     /**
      * 将对象数组转换为VO对象
      */
-    public List<StudentScoreVO> convertToVOList(List<Student> students, String courseId) {
+    public List<StudentScoreVO> convertToVOList(List<Student> students, Long courseId) {
         List<StudentScoreVO> studentScoreVOS = new ArrayList<>();
         students.forEach(student -> {
                     studentScoreVOS.add(convertToVO(student, courseId));

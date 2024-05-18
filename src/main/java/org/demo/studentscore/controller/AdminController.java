@@ -9,7 +9,9 @@ import org.demo.studentscore.model.converter.PageInfoConverter;
 import org.demo.studentscore.model.converter.StudentVOConverter;
 import org.demo.studentscore.model.entity.Student;
 import org.demo.studentscore.model.vo.StudentVO;
+import org.demo.studentscore.service.AdminService;
 import org.demo.studentscore.service.StudentService;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +21,23 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
+    private final AdminService adminService;
     private final StudentService studentService;
     private final StudentVOConverter studentVOConverter;
     private final PageInfoConverter pageInfoConverter;
+
+
+    @GetMapping("/info")
+    public R<?> getInfo(Authentication authentication) {
+        String adminId = authentication.getName();
+        Map<String, Object> adminInfo;
+        try {
+            adminInfo = adminService.getInfo(adminId);
+        } catch (DataNotFoundException e) {
+            return R.fail(StatusEnum.RECORD_NOT_FOUND);
+        }
+        return R.success(adminInfo);
+    }
 
     @GetMapping("/student/{pageSize}/{pageNum}")
     public R<?> getStudent(@PathVariable("pageSize") Integer pageSize, @PathVariable("pageNum") Integer pageNum, @RequestParam Map<String, String> keywords) {

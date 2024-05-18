@@ -8,7 +8,7 @@ public class Teacher {
     @TableId
     private Long tno;
     private String name;
-    private String sex;
+    private Boolean sex;
     private String password;
     private String phone;
 }

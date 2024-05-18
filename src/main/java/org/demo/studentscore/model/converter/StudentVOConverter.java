@@ -24,7 +24,7 @@ public class StudentVOConverter {
     public StudentVO convertToVO(Student student) {
         Major major = majorMapper.selectOne(new LambdaUpdateWrapper<Major>().eq(Major::getMid, student.getMid()));
         SClass sClass = sClassMapper.selectOne(new LambdaUpdateWrapper<SClass>().eq(SClass::getCid, student.getCid()));
-        return new StudentVO(student.getSno(), student.getName(), student.getEmail(), student.getMid(), major.getName(), student.getCid(), sClass.getName());
+        return new StudentVO(student.getSno(), student.getName(), student.getSex(), student.getEmail(), student.getMid(), major.getName(), student.getCid(), sClass.getName());
     }
 
     public List<StudentVO> convertToVOList(List<Student> students) {

@@ -12,6 +12,7 @@ import lombok.ToString;
 public class StudentVO {
     private Long sno;
     private String name;
+    private Boolean sex;
     private String email;
     private Long mid;
     private String majorName;

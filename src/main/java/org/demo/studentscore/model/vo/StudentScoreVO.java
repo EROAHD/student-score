@@ -10,8 +10,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class StudentScoreVO {
-    private Long sno;
-    private String name;
+    private Long sno; // 学号
+    private String name; // 姓名
     private Long courseId; // 课程号
     private String courseName; // 课程名
     private String teacher; // 老师

@@ -1,10 +1,10 @@
 package org.demo.studentscore.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.demo.studentscore.common.constants.CourseTypesConstants;
 import org.demo.studentscore.exceptions.DataNotFoundException;
+import org.demo.studentscore.exceptions.IllegalParameterException;
 import org.demo.studentscore.exceptions.IncompleteRequestParameterException;
 import org.demo.studentscore.exceptions.InsertDataFailException;
 import org.demo.studentscore.mapper.*;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -39,35 +38,30 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Course> getTeacherCourse(String tno, Integer pageSize, Integer pageNum, Map<String, String> keywords) throws IncompleteRequestParameterException {
-        String type = keywords.get("type");
-        if (type == null)
+    public List<Course> getTeacherCourse(String tno, String courseType) throws IncompleteRequestParameterException {
+        if (courseType == null)
             throw new IncompleteRequestParameterException("请求参数不完整");
         List<Course> courses = null;
         LambdaUpdateWrapper<Course> courseLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
         courseLambdaUpdateWrapper.eq(Course::getTno, tno);
-        switch (type) {
+        switch (courseType) {
             case CourseTypesConstants.ALL: {
                 break;
             }
             case CourseTypesConstants.MAIN:
             case CourseTypesConstants.ELECTIVE: {
-                courseLambdaUpdateWrapper.eq(Course::getTypeId, type);
+                courseLambdaUpdateWrapper.eq(Course::getTypeId, courseType);
                 break;
             }
             default:
                 throw new IncompleteRequestParameterException("请求参数错误");
         }
-        PageHelper.startPage(pageNum, pageSize);
         courses = courseMapper.selectList(courseLambdaUpdateWrapper);
         return courses;
     }
 
     @Override
-    public List<Student> getStudents(String tno, Integer pageSize, Integer pageNum, Map<String, String> keywords) throws IncompleteRequestParameterException, DataNotFoundException {
-        String courseId = keywords.get("courseId");
-        String courseType = keywords.get("courseType");
-
+    public List<Student> getStudents(String tno, String courseType, Long courseId) throws IncompleteRequestParameterException, DataNotFoundException {
         if (courseId == null || courseType == null) {
             throw new IncompleteRequestParameterException("请求参数不完整");
         }
@@ -83,7 +77,6 @@ public class TeacherServiceImpl implements TeacherService {
                 Course course = courseMapper.selectOne(new LambdaUpdateWrapper<Course>().eq(Course::getCid, courseId));
                 if (course == null)
                     throw new DataNotFoundException("必修课程未找到");
-                PageHelper.startPage(pageNum, pageSize);
                 students = studentMapper.selectList(new LambdaUpdateWrapper<Student>().eq(Student::getMid, course.getMid()));
             }
             break;
@@ -99,7 +92,6 @@ public class TeacherServiceImpl implements TeacherService {
                 if (snoList.isEmpty()) {
                     throw new DataNotFoundException("未找到选修此课程的学生");
                 }
-                PageHelper.startPage(pageNum, pageSize);
                 students = studentMapper.selectList(new LambdaUpdateWrapper<Student>().in(Student::getSno, snoList));
             }
             break;
@@ -108,7 +100,10 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void setStuScore(Long sno, Long courseId, Integer score) throws DataNotFoundException, InsertDataFailException {
+    public void setStuScore(Long sno, Long courseId, Integer score) throws DataNotFoundException, InsertDataFailException, IllegalParameterException {
+        if (score < 0 || score > 100) {
+            throw new IllegalParameterException("成绩值参数不合法");
+        }
         Student student = studentMapper.selectById(sno);
         if (student == null) {
             throw new DataNotFoundException("未找到学号为" + sno + "的学生");

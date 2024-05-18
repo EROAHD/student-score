@@ -1,6 +1,7 @@
 package org.demo.studentscore.service;
 
 import org.demo.studentscore.exceptions.DataNotFoundException;
+import org.demo.studentscore.exceptions.IncompleteRequestParameterException;
 import org.demo.studentscore.model.entity.Student;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface StudentService {
     Student getStudentInfo(String sno) throws DataNotFoundException;
 
     List<Student> getStudent(Integer pageSize, Integer pageNum, Map<String, String> keywords) throws DataNotFoundException;
+
+    List<Map<String, Object>> getScores(String sno, String courseType) throws IncompleteRequestParameterException, DataNotFoundException;
 }
