@@ -20,6 +20,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * 自定义jwt验证过滤器 配合SpringSecurity实现jwt登陆验证
@@ -36,6 +37,9 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private String loginUri;
     @Value("${upload.path}")
     private String staticResPath;
+
+    @Value("${jwt.allowPaths}")
+    private String[] allowPaths;
 
     // 包含token的请求头名称
     @Value("${jwt.tokenHeaderName}")
@@ -56,6 +60,16 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        //
+        if (allowPaths != null) {
+            for (String allowPath : allowPaths) {
+                if (requestURI.startsWith(allowPath)) {
+                    filterChain.doFilter(request, response);
+                    return;
+                }
+            }
+        }
+        log.info("目前设置" + Arrays.toString(allowPaths) + "路径不检测token，直接放行");
         //
         String token = request.getHeader(tokenHeaderName);
         // 判断token是否为空

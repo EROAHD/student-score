@@ -32,3 +32,5 @@ jwt:
   loginUri: "/login"
   #  设置token请求头名称
   tokenHeaderName: "token"
+  #  在jwt filter中使用 使用startWith 做判断 注意带斜杠 否则 /banner***开头的都能访问
+  allowPaths: /banner/

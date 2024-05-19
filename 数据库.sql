@@ -103,9 +103,9 @@ VALUES (1345678903, '周小龙', 1, 15601234567, @password);
 -- 创建课程类型表
 CREATE TABLE course_types
 (
-    type_id     INT AUTO_INCREMENT PRIMARY KEY,
-    type_name   VARCHAR(50) NOT NULL,
-    description TEXT
+    type_id     INT AUTO_INCREMENT PRIMARY KEY COMMENT '表示课程类型id',
+    type_name   VARCHAR(50) NOT NULL COMMENT '表示课程类型名',
+    description TEXT COMMENT '课程类型描述'
 );
 
 INSERT INTO course_types(type_id, type_name) VALUE (1, '必修');
@@ -532,8 +532,8 @@ VALUES (1912020201, 1024, 76, 0);
 
 CREATE TABLE roles
 (
-    username BIGINT PRIMARY KEY,
-    role     VARCHAR(50) NOT NULL
+    username BIGINT PRIMARY KEY COMMENT '用户用于登陆的用户账号',
+    role     VARCHAR(50) NOT NULL COMMENT '用户的角色规则'
 );
 
 INSERT INTO roles(username, role)
@@ -551,9 +551,9 @@ FROM admin;
 # 其他需求所需表
 CREATE TABLE avatar
 (
-    user_id     BIGINT       NOT NULL,
-    save_path   VARCHAR(100) NOT NULL,
-    upload_date TIMESTAMP    NOT NULL
+    user_id     BIGINT       NOT NULL COMMENT '用户头像id',
+    save_path   VARCHAR(100) NOT NULL COMMENT '用户头像保存的实际位置',
+    upload_date TIMESTAMP    NOT NULL COMMENT '用户头像的上传时间'
 );
 
 # 创建学生选课表
@@ -567,3 +567,16 @@ INSERT INTO s_elective(sno, cid) VALUE (1910010101, 1011);
 INSERT INTO s_elective(sno, cid) VALUE (1910010101, 1014);
 INSERT INTO s_elective(sno, cid) VALUE (1910010101, 1018);
 INSERT INTO s_elective(sno, cid) VALUE (1910010101, 1022);
+
+# 创建首页走马灯信息表
+CREATE TABLE banner
+(
+    banner_id   CHAR(36) PRIMARY KEY   DEFAULT UUID(),
+    banner_type BIT           NOT NULL DEFAULT 1 COMMENT '1: 本地文件, 0: 网络图片',
+    banner_url  VARCHAR(1000) NOT NULL COMMENT '点击图片后的跳转路径',
+    file_path   VARCHAR(1000) NULL COMMENT '本地文件路径'
+);
+
+INSERT INTO banner(banner_type, banner_url, file_path)
+VALUES (0, '/product/1', '/uploads/banner1.jpg'), -- 本地文件, 点击跳转到 /product/1
+       (1, 'https://example.com', NULL); -- 网络图片, 点击跳转到 https://example.com

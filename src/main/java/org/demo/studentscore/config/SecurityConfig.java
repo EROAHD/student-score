@@ -59,6 +59,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/teacher/**").hasAnyAuthority(RolesEnum.ROLE_TEACHER.getRole())
                         .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(RolesEnum.ROLE_ADMIN.getRole())
                         .requestMatchers("/upload/**").permitAll()
+                        .requestMatchers("/banner/**").permitAll()
                         .anyRequest().authenticated()
                 );
         http.sessionManagement(configurer ->
