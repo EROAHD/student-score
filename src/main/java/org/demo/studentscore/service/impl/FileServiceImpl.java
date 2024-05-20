@@ -20,6 +20,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
+
 public class FileServiceImpl implements FileService {
     @Value("${upload.path}")
     private String uploadPath;
@@ -75,8 +76,6 @@ public class FileServiceImpl implements FileService {
                 throw new DataNotFoundException("上传目标文件夹创建失败");
             }
         }
-        // 获取文件名称
-
         // 磁盘中存储的目标文件路径
         File uploadFile = new File(uploadFileSaveDir.getAbsolutePath() + File.separator + fileName);
         log.info("文件上传到：" + uploadFile.getAbsolutePath());

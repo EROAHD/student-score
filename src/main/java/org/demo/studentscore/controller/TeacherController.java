@@ -11,11 +11,13 @@ import org.demo.studentscore.exceptions.IncompleteRequestParameterException;
 import org.demo.studentscore.exceptions.InsertDataFailException;
 import org.demo.studentscore.model.converter.PageInfoConverter;
 import org.demo.studentscore.model.converter.StudentScoreVOConverter;
+import org.demo.studentscore.model.converter.TeacherCourseVOConverter;
 import org.demo.studentscore.model.converter.TeacherVOConverter;
 import org.demo.studentscore.model.entity.Course;
 import org.demo.studentscore.model.entity.Student;
 import org.demo.studentscore.model.entity.Teacher;
 import org.demo.studentscore.model.vo.StudentScoreVO;
+import org.demo.studentscore.model.vo.TeacherCourseVO;
 import org.demo.studentscore.model.vo.TeacherVO;
 import org.demo.studentscore.service.TeacherService;
 import org.springframework.security.core.Authentication;
@@ -30,6 +32,7 @@ import java.util.List;
 public class TeacherController {
     private final TeacherService teacherService;
     private final TeacherVOConverter teacherVOConverter;
+    private final TeacherCourseVOConverter teacherCourseVOConverter;
     private final StudentScoreVOConverter studentScoreVOConverter;
     private final PageInfoConverter pageInfoConverter;
 
@@ -63,7 +66,8 @@ public class TeacherController {
         if (courses == null) {
             return R.fail(StatusEnum.RECORD_NOT_FOUND);
         }
-        return R.success(courses);
+        List<TeacherCourseVO> teacherCourseVOS = teacherCourseVOConverter.convertToVOList(courses);
+        return R.success(teacherCourseVOS);
     }
 
     @GetMapping("/students/{courseType}/{courseId}")
