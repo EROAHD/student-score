@@ -2,7 +2,6 @@ package org.demo.studentscore.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.demo.studentscore.common.constants.CourseTypesConstants;
 import org.demo.studentscore.exceptions.DataNotFoundException;
@@ -12,6 +11,7 @@ import org.demo.studentscore.model.entity.*;
 import org.demo.studentscore.service.StudentService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,21 +36,6 @@ public class StudentServiceImpl implements StudentService {
             throw new DataNotFoundException("学生未找到");
         }
         return student;
-    }
-
-    @Override
-    public List<Student> getStudent(Integer pageSize, Integer pageNum, Map<String, String> keywords) throws DataNotFoundException {
-        LambdaQueryWrapper<Student> studentLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        // 添加查询条件
-        studentLambdaQueryWrapper.likeRight(keywords.get("sno") != null, Student::getSno, keywords.get("sno"));
-        studentLambdaQueryWrapper.likeRight(keywords.get("sno") != null, Student::getSno, keywords.get("sno"));
-        //
-        PageHelper.startPage(pageNum, pageSize);
-        List<Student> students = studentMapper.selectList(studentLambdaQueryWrapper);
-        if (students == null || students.isEmpty()) {
-            throw new DataNotFoundException("通过关键字未找到学生");
-        }
-        return students;
     }
 
     @Override
@@ -109,5 +94,14 @@ public class StudentServiceImpl implements StudentService {
             }
         }
         return scores;
+    }
+
+    @Override
+    public List<Student> getAllStudents(Map<String, String> keywords) {
+        LambdaQueryWrapper<Student> studentLambdaUpdateWrapper = new LambdaQueryWrapper<>();
+        studentLambdaUpdateWrapper.likeRight(StringUtils.hasText(keywords.get("sno")), Student::getSno, keywords.get("sno"));
+        studentLambdaUpdateWrapper.likeRight(StringUtils.hasText(keywords.get("name")), Student::getName, keywords.get("name"));
+        studentLambdaUpdateWrapper.likeRight(StringUtils.hasText(keywords.get("email")), Student::getEmail, keywords.get("email"));
+        return studentMapper.selectList(studentLambdaUpdateWrapper);
     }
 }
