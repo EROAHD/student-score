@@ -5,8 +5,7 @@ import org.demo.studentscore.common.R;
 import org.demo.studentscore.common.StatusEnum;
 import org.demo.studentscore.exceptions.DataNotFoundException;
 import org.demo.studentscore.model.converter.StudentVOConverter;
-import org.demo.studentscore.model.entity.Avatar;
-import org.demo.studentscore.model.entity.Student;
+import org.demo.studentscore.model.entity.*;
 import org.demo.studentscore.model.vo.StudentVO;
 import org.demo.studentscore.service.AdminService;
 import org.demo.studentscore.service.AvatarService;
@@ -38,6 +37,24 @@ public class AdminController {
         return R.success(adminInfo);
     }
 
+    @GetMapping("/course")
+    public R<?> getAllCourses(@RequestParam Map<String, String> keywords) {
+        List<Course> courses = adminService.getAllCourses(keywords);
+        return R.success(courses);
+    }
+
+    @GetMapping("/major")
+    public R<?> getAllMajors(@RequestParam Map<String, String> keywords) {
+        List<Major> majors = adminService.getAllMajors(keywords);
+        return R.success(majors);
+    }
+
+    @GetMapping("/class")
+    public R<?> getAllSClass(@RequestParam Map<String, String> keywords) {
+        List<SClass> majors = adminService.getAllSClass(keywords);
+        return R.success(majors);
+    }
+
     @GetMapping("/student")
     public R<?> getAllStudents(@RequestParam Map<String, String> keywords) {
         List<Student> students = studentService.getAllStudents(keywords);
@@ -46,6 +63,11 @@ public class AdminController {
             studentVOS = studentVOConverter.convertToVOList(students);
         }
         return R.success(studentVOS);
+    }
+
+    @PostMapping("/student/add")
+    public R<?> addStudent(@RequestBody Student student) {
+        return null;
     }
 
     @GetMapping("/avatar/{userId}")
